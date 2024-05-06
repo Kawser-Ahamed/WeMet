@@ -45,7 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: height * 0.05),
-                    Image.asset(AppImageUrls.welcomeScreenFirstImage,fit: BoxFit.contain),
+                    Image.asset(AppImageUrls.welcomeScreenFirstImage,fit: BoxFit.contain,height: height * 0.4),
                     Text("Welcome To WeMet",
                       style: GoogleFonts.aBeeZee(
                         color: Colors.black,
@@ -76,7 +76,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: height * 0.05),
-                    Image.asset(AppImageUrls.welcomeScreenSecondImage,fit: BoxFit.contain),
+                    Image.asset(AppImageUrls.welcomeScreenSecondImage,fit: BoxFit.contain,height : height * 0.4),
                     Text("Connect With Others",
                       style: GoogleFonts.aBeeZee(
                         color: Colors.white,
@@ -107,7 +107,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: height * 0.05),
-                    Image.asset(AppImageUrls.welcomeScreenThirdImage,fit: BoxFit.contain),
+                    Image.asset(AppImageUrls.welcomeScreenThirdImage,fit: BoxFit.contain,height: height * 0.4,),
                     Text("Let's Explore WeMet",
                       style: GoogleFonts.aBeeZee(
                         color: Colors.white,
@@ -138,6 +138,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               alignment: Alignment.bottomCenter,
               child: PageViewIndicator(
                 currentIndex: _currentIndex,
+                currentSize: (width/Screen.designWidth) * 20,
+                otherSize: (width/Screen.designWidth) * 15,
                 currentColor: Colors.red,
                 length: 3,
               ),

@@ -17,6 +17,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   
   @override
   Widget build(BuildContext context) {
+    double height = Screen.screenHeight(context);
     double width = Screen.screenWidth(context);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: width * 0.05),
@@ -24,12 +25,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
         controller: widget.controller,
         obscureText: (widget.isPassword) ? obsecure : false,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: height * 0.02),
           label: Text(widget.label,
             style: TextStyle(
               fontSize: (width/Screen.designWidth) * 30,
             ),
           ),
-          prefixIcon: Icon(widget.prefixIcon),
+          prefixIcon: Icon(widget.prefixIcon,size: (width/Screen.designWidth) * 40,),
           suffixIcon: (widget.isPassword) ? InkWell(
             onTap: (){
               setState(() {

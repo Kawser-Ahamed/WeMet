@@ -27,6 +27,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     double height = Screen.screenHeight(context);
     double width = Screen.screenWidth(context);
+    double screenFactor = width/Screen.designWidth;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -39,18 +40,21 @@ class _SignInState extends State<SignIn> {
           children: [
             Positioned(
               top: height * 0.1,
-              left: width * 0.35,
+              left: width * 0.37,
               height: height * 0.15,
               width: height * 0.15,
-              child: Material(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                elevation: 10.0,
-                shadowColor: Colors.grey.shade300,
-                child: FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Image.asset(AppImageUrls.appIcon)),
+              child: Align(
+                alignment: Alignment.center,
+                child: Material(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(screenFactor * 10)),
+                  elevation: 10.0,
+                  shadowColor: Colors.grey.shade300,
+                  child: FittedBox(
+                    child: Padding(
+                      padding: EdgeInsets.all(width * 0.03),
+                      child: Image.asset(AppImageUrls.appIcon)),
+                  ),
                 ),
               )
             ),
@@ -61,9 +65,9 @@ class _SignInState extends State<SignIn> {
               right: 0,
               child: Material(
                 color: Colors.white,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(screenFactor * 30),
+                  topRight: Radius.circular(screenFactor * 30),
                 ),
                 child: SingleChildScrollView(
                   child: Column(
@@ -71,7 +75,7 @@ class _SignInState extends State<SignIn> {
                       SizedBox(height: height * 0.03),
                       Text("Welcome Back",
                         style: GoogleFonts.aBeeZee(
-                          fontSize: (width/Screen.designWidth) * 50,
+                          fontSize: screenFactor *50,
                           fontWeight : FontWeight.bold,
                         ),
                       ),
@@ -82,13 +86,13 @@ class _SignInState extends State<SignIn> {
                       SizedBox(height: height * 0.03),
                       Material(
                         color: Colors.deepPurple,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(screenFactor *10),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: height * 0.01,horizontal: width * 0.35),
+                          padding: EdgeInsets.symmetric(vertical: height * 0.015,horizontal: width * 0.38),
                           child: Text("Login",
                             style: GoogleFonts.aBeeZee(
                               color: Colors.white,
-                              fontSize: (width/Screen.designWidth) * 50,
+                              fontSize: screenFactor * 35,
                               fontWeight : FontWeight.w400,
                             ),
                           ),
@@ -98,7 +102,7 @@ class _SignInState extends State<SignIn> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(width: width * 0.03),
+                          SizedBox(width: width * 0.05),
                           Expanded(
                             flex: 3,
                             child: Container(
@@ -111,7 +115,7 @@ class _SignInState extends State<SignIn> {
                             child: Text("OR",
                             textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: (width/Screen.designWidth) * 30,
+                                fontSize: screenFactor * 35,
                                 fontWeight: FontWeight.bold
                               ),
                             ),
@@ -123,46 +127,44 @@ class _SignInState extends State<SignIn> {
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(width: width * 0.03),
+                          SizedBox(width: width * 0.05),
                         ],
                       ),
                       SizedBox(height: height * 0.03),
-                      Container(
-                        height: height * 0.08,
-                        width: width,
-                        margin: EdgeInsets.symmetric(horizontal: width * 0.05),
-                        decoration: BoxDecoration(
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                        child: Material(
                           color: Colors.blueAccent,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(right: width * 0.05),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: height * 0.07,
-                                width: height * 0.07,
-                                margin: EdgeInsets.only(left: width * 0.01),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: FittedBox(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(50),
-                                    child: Image.asset(AppImageUrls.googleIcon)
+                          borderRadius: BorderRadius.circular(screenFactor * 10),
+                          child: Padding(
+                            padding: EdgeInsets.only(right: width * 0.15,top: width * 0.01,bottom: width * 0.01),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: width * 0.1,
+                                  width: width * 0.1,
+                                  margin: EdgeInsets.only(left: width * 0.01),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(screenFactor* 10),
+                                  ),
+                                  child: FittedBox(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(width * 0.1),
+                                      child: Image.asset(AppImageUrls.googleIcon)
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text("Sign In With Google",
-                                style: TextStyle(
-                                  fontSize: (width/Screen.designWidth) * 40,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              )
-                            ],
+                                Text("Sign In With Google",
+                                  style: TextStyle(
+                                    fontSize: screenFactor * 35,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
