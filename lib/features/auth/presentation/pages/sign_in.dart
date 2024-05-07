@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wemet/config/routes/app_routes_constant.dart';
 import 'package:wemet/core/Color/app_color.dart';
 import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/core/urls/app_image_urls.dart';
@@ -80,16 +82,48 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                       SizedBox(height: height * 0.03),
-                      CustomTextField(label: "Email", prefixIcon: Icons.email,controller: emailController,isPassword: false,),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                        child: CustomTextField(label: "Email", prefixIcon: Icons.email,controller: emailController,isPassword: false,)
+                      ),
                       SizedBox(height: height * 0.02),
-                      CustomTextField(label: "Password", prefixIcon: Icons.password,controller: passwordController,isPassword: true,),
-                      SizedBox(height: height * 0.03),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                        child: CustomTextField(label: "Password", prefixIcon: Icons.password,controller: passwordController,isPassword: true,)
+                      ),
+                      SizedBox(height: height * 0.02),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                        child: Row(
+                          children: [
+                            Text("Don't Have Any Account?  ",
+                              style: GoogleFonts.aBeeZee(
+                                fontSize: screenFactor *30,
+                                fontWeight : FontWeight.normal,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: (){
+                                GoRouter.of(context).pushNamed(AppRoutesConstant.signUp);
+                              },
+                              child: Text("Sign Up",
+                                style: GoogleFonts.aBeeZee(
+                                  fontSize: screenFactor *30,
+                                  color: Colors.green,
+                                  fontWeight : FontWeight.normal,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: height * 0.02),
                       Material(
                         color: Colors.deepPurple,
                         borderRadius: BorderRadius.circular(screenFactor *10),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: height * 0.015,horizontal: width * 0.38),
-                          child: Text("Login",
+                          padding: EdgeInsets.symmetric(vertical: height * 0.012,horizontal: width * 0.37),
+                          child: Text("Sign In",
                             style: GoogleFonts.aBeeZee(
                               color: Colors.white,
                               fontSize: screenFactor * 35,

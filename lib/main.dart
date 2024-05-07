@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wemet/features/auth/presentation/pages/sign_in.dart';
+import 'package:wemet/config/routes/app_routes.dart';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,9 +13,9 @@ class WeMet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: SignIn(),
+      routerConfig: AppRoutes.router,
     );
   }
 }
