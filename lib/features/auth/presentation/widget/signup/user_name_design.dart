@@ -31,9 +31,17 @@ class UserNameDesign extends StatelessWidget {
           ),
         ),
         SizedBox(height: height * 0.03),
-        CustomTextField(label: "First Name", prefixIcon: Icons.mail, controller: firstName, isPassword: false),
-        SizedBox(height: height * 0.02,),
-        CustomTextField(label: "Last Name", prefixIcon: Icons.password, controller: lastName, isPassword: false),
+       Row(
+        children: [
+          Expanded(
+            child: CustomTextField(label: "First Name", prefixIcon: Icons.person, controller: firstName, isPassword: false)
+          ),
+          SizedBox(width: width * 0.03),
+          Expanded(
+            child: CustomTextField(label: "Last Name", prefixIcon: Icons.person, controller: lastName, isPassword: false)
+          ),
+        ],
+       )
       ],
     );
   }
