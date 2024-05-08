@@ -18,6 +18,7 @@ class _SignInState extends State<SignIn> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -72,138 +73,150 @@ class _SignInState extends State<SignIn> {
                   topRight: Radius.circular(screenFactor * 30),
                 ),
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: height * 0.03),
-                      Text("Welcome Back",
-                        style: GoogleFonts.aBeeZee(
-                          fontSize: screenFactor *50,
-                          fontWeight : FontWeight.bold,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        SizedBox(height: height * 0.03),
+                        Text("Welcome Back",
+                          style: GoogleFonts.aBeeZee(
+                            fontSize: screenFactor *50,
+                            fontWeight : FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: height * 0.03),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-                        child: CustomTextField(label: "Email", prefixIcon: Icons.email,controller: emailController,isPassword: false,)
-                      ),
-                      SizedBox(height: height * 0.02),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-                        child: CustomTextField(label: "Password", prefixIcon: Icons.password,controller: passwordController,isPassword: true,)
-                      ),
-                      SizedBox(height: height * 0.02),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-                        child: Row(
-                          children: [
-                            Text("Don't Have Any Account?  ",
-                              style: GoogleFonts.aBeeZee(
-                                fontSize: screenFactor *30,
-                                fontWeight : FontWeight.normal,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: (){
-                                GoRouter.of(context).pushNamed(AppRoutesConstant.signUp);
-                              },
-                              child: Text("Sign Up",
+                        SizedBox(height: height * 0.03),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                          child: CustomTextField(label: "Email", prefixIcon: Icons.email,controller: emailController,isPassword: false,)
+                        ),
+                        SizedBox(height: height * 0.02),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                          child: CustomTextField(label: "Password", prefixIcon: Icons.password,controller: passwordController,isPassword: true,)
+                        ),
+                        SizedBox(height: height * 0.02),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                          child: Row(
+                            children: [
+                              Text("Don't Have Any Account?  ",
                                 style: GoogleFonts.aBeeZee(
                                   fontSize: screenFactor *30,
-                                  color: Colors.green,
                                   fontWeight : FontWeight.normal,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: height * 0.02),
-                      Material(
-                        color: Colors.deepPurple,
-                        borderRadius: BorderRadius.circular(screenFactor *10),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: height * 0.012,horizontal: width * 0.37),
-                          child: Text("Sign In",
-                            style: GoogleFonts.aBeeZee(
-                              color: Colors.white,
-                              fontSize: screenFactor * 35,
-                              fontWeight : FontWeight.w400,
-                            ),
+                              InkWell(
+                                onTap: (){
+                                  GoRouter.of(context).pushNamed(AppRoutesConstant.signUp);
+                                },
+                                child: Text("Sign Up",
+                                  style: GoogleFonts.aBeeZee(
+                                    fontSize: screenFactor *30,
+                                    color: Colors.green,
+                                    fontWeight : FontWeight.normal,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                      SizedBox(height: height * 0.03),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(width: width * 0.05),
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              height: height * 0.002,
-                              color: Colors.black,
+                        SizedBox(height: height * 0.02),
+                        GestureDetector(
+                          onTap: (){
+                            if(_formKey.currentState!.validate()){
+
+                            }
+                          },
+                          child:Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(screenFactor * 10),
+                              gradient: LinearGradient(colors: [AppColor.signinPageRedbackgroundColor,AppColor.signinPageDarkbackgroundColor]),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Text("OR",
-                            textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: screenFactor * 35,
-                                fontWeight: FontWeight.bold
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: height * 0.012,horizontal: width * 0.37),
+                              child: Text("Sign In",
+                                style: GoogleFonts.aBeeZee(
+                                  color: Colors.white,
+                                  fontSize: screenFactor * 35,
+                                  fontWeight : FontWeight.w400,
+                                ),
                               ),
                             ),
                           ),
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              height: height * 0.002,
-                              color: Colors.black,
+                        ),
+                        SizedBox(height: height * 0.03),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(width: width * 0.05),
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                height: height * 0.002,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          SizedBox(width: width * 0.05),
-                        ],
-                      ),
-                      SizedBox(height: height * 0.03),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-                        child: Material(
-                          color: Colors.blueAccent,
-                          borderRadius: BorderRadius.circular(screenFactor * 10),
-                          child: Padding(
-                            padding: EdgeInsets.only(right: width * 0.15,top: width * 0.01,bottom: width * 0.01),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  height: width * 0.1,
-                                  width: width * 0.1,
-                                  margin: EdgeInsets.only(left: width * 0.01),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(screenFactor* 10),
-                                  ),
-                                  child: FittedBox(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(width * 0.1),
-                                      child: Image.asset(AppImageUrls.googleIcon)
+                            Expanded(
+                              flex: 1,
+                              child: Text("OR",
+                              textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: screenFactor * 35,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                height: height * 0.002,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(width: width * 0.05),
+                          ],
+                        ),
+                        SizedBox(height: height * 0.03),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                          child: Material(
+                            color: Colors.blueAccent,
+                            borderRadius: BorderRadius.circular(screenFactor * 10),
+                            child: Padding(
+                              padding: EdgeInsets.only(right: width * 0.15,top: width * 0.01,bottom: width * 0.01),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    height: width * 0.1,
+                                    width: width * 0.1,
+                                    margin: EdgeInsets.only(left: width * 0.01),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(screenFactor* 10),
+                                    ),
+                                    child: FittedBox(
+                                      child: Padding(
+                                        padding: EdgeInsets.all(width * 0.1),
+                                        child: Image.asset(AppImageUrls.googleIcon)
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Text("Sign In With Google",
-                                  style: TextStyle(
-                                    fontSize: screenFactor * 35,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                )
-                              ],
+                                  Text("Sign In With Google",
+                                    style: TextStyle(
+                                      fontSize: screenFactor * 35,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: height * 0.05),
-                    ],
+                        SizedBox(height: height * 0.05),
+                      ],
+                    ),
                   ),
                 ),
               ),

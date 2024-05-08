@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1091608067897",
+    "project_id": "wemet-72365",
+    "storage_bucket": "wemet-72365.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091608067897:android:3a3479827def724d7732e8",
+        "android_client_info": {
+          "package_name": "com.example.wemet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh9djUNkKFEaSu85itm4O3OfdFgmvYCyI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

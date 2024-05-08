@@ -19,10 +19,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     double height = Screen.screenHeight(context);
     double width = Screen.screenWidth(context);
-    return TextField(
+    return TextFormField(
       controller: widget.controller,
       obscureText: (widget.isPassword) ? obsecure : false,
+      validator: (value){
+        if(value!.isEmpty){
+          return "${widget.label} can not be empty";
+        }
+        return null;
+      },
       decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.grey.shade100,
         contentPadding: EdgeInsets.symmetric(vertical: height * 0.02),
         label: Text(widget.label,
           style: TextStyle(
@@ -39,7 +47,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           child: (obsecure) ? Icon(Icons.visibility,color: Colors.black,size:(width/Screen.designWidth) * 40) : Icon(Icons.visibility_off,color: Colors.black, size: (width/Screen.designWidth) * 40),
         ) : null,
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
+          borderSide: BorderSide(color: Colors.blue),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         border: const OutlineInputBorder(

@@ -5,17 +5,17 @@ import 'package:wemet/core/reusable/wemet_image_picker.dart';
 import 'package:wemet/core/urls/app_image_urls.dart';
 import 'package:wemet/features/auth/presentation/widget/custom_textfield.dart';
 
-class BioGenderDesign extends StatefulWidget {
+class BioImagerDesign extends StatefulWidget {
   final TextEditingController bioController;
   final WemetImagePicker profilePicture;
   final WemetImagePicker coverPhoto;
-  const BioGenderDesign({super.key, required this.bioController, required this.profilePicture, required this.coverPhoto});
+  const BioImagerDesign({super.key, required this.bioController, required this.profilePicture, required this.coverPhoto});
 
   @override
-  State<BioGenderDesign> createState() => _BioGenderDesignState();
+  State<BioImagerDesign> createState() => _BioImagerDesignState();
 }
 
-class _BioGenderDesignState extends State<BioGenderDesign> {
+class _BioImagerDesignState extends State<BioImagerDesign> {
   @override
   Widget build(BuildContext context) {
     double height = Screen.screenHeight(context);
@@ -43,7 +43,7 @@ class _BioGenderDesignState extends State<BioGenderDesign> {
         SizedBox(height: height * 0.02),
         Card(
           elevation: 0,
-          color: Colors.transparent,
+          color: Colors.grey.shade100,
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
@@ -68,7 +68,7 @@ class _BioGenderDesignState extends State<BioGenderDesign> {
                     child: Column(
                       children: [
                         SizedBox(height: height * 0.01),
-                        (widget.profilePicture.imageFromCamera== null && widget.profilePicture.imageFromGallery== null) ? Container(
+                        (widget.profilePicture.imageFromDevice == null) ? Container(
                           height: height * 0.1,
                           width: height * 0.1,
                           decoration: BoxDecoration(
@@ -79,25 +79,14 @@ class _BioGenderDesignState extends State<BioGenderDesign> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                        ) : (widget.profilePicture.imageFromGallery != null) ?  Container(
+                        ) : Container(
                           height: height * 0.1,
                           width: height * 0.1,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.transparent,
                             image: DecorationImage(
-                              image: FileImage(widget.profilePicture.imageFromGallery!),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ) :  Container(
-                          height: height * 0.1,
-                          width: height * 0.1,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.transparent,
-                            image: DecorationImage(
-                              image: FileImage(widget.profilePicture.imageFromCamera!),
+                              image: FileImage(widget.profilePicture.imageFromDevice!),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -136,7 +125,7 @@ class _BioGenderDesignState extends State<BioGenderDesign> {
         ),
         Card(
           elevation: 0,
-          color: Colors.transparent,
+          color: Colors.grey.shade100,
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
@@ -148,7 +137,7 @@ class _BioGenderDesignState extends State<BioGenderDesign> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  (widget.coverPhoto.imageFromCamera== null && widget.coverPhoto.imageFromGallery== null) ? Container(
+                  (widget.coverPhoto.imageFromDevice== null) ? Container(
                     height: height * 0.1,
                     width: width * 0.2,
                     decoration: BoxDecoration(
@@ -158,23 +147,13 @@ class _BioGenderDesignState extends State<BioGenderDesign> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                  ) : (widget.coverPhoto.imageFromGallery != null) ?  Container(
+                  ) :Container(
                     height: height * 0.1,
                     width: width * 0.2,
                     decoration: BoxDecoration(
                       color: Colors.transparent,
                       image: DecorationImage(
-                        image: FileImage(widget.coverPhoto.imageFromGallery!),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ) :  Container(
-                    height: height * 0.1,
-                    width: width * 0.2,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      image: DecorationImage(
-                        image: FileImage(widget.coverPhoto.imageFromCamera!),
+                        image: FileImage(widget.coverPhoto.imageFromDevice!),
                         fit: BoxFit.contain,
                       ),
                     ),
