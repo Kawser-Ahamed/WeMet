@@ -7,7 +7,7 @@ import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/core/reusable/wemet_image_picker.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_event.dart';
-import 'package:wemet/features/auth/presentation/bloc/auth_state.dart';
+import 'package:wemet/features/auth/presentation/widget/auth_loading.dart';
 import 'package:wemet/features/auth/presentation/widget/signup/bio_image_design.dart';
 import 'package:wemet/features/auth/presentation/widget/signup/email_password_design.dart';
 import 'package:wemet/features/auth/presentation/widget/signup/user_name_design.dart';
@@ -126,9 +126,9 @@ class _SignUpState extends State<SignUp> {
                                     coverPhotoUrl: coverPhoto.imageFromDevice!, 
                                     followers: 0, 
                                     following: 0,
+                                    context: context,
                                   ));
-                                  final AuthState state = BlocProvider.of<AuthBloc>(context).state;
-                                  print(state.message);
+                                  authLoading(context);
                                 }
                                 else{
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please pick images"),));

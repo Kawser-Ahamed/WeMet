@@ -1,6 +1,8 @@
 
 import 'dart:io';
 
+import 'package:flutter/widgets.dart';
+
 class AuthEvent {}
 
 class SignUpEvent extends AuthEvent{
@@ -14,7 +16,7 @@ class SignUpEvent extends AuthEvent{
   final File coverPhotoUrl;
   final int followers;
   final int following;
-
+  final BuildContext context;
   SignUpEvent({
     required this.email,
     required this.password,
@@ -26,5 +28,6 @@ class SignUpEvent extends AuthEvent{
     required this.coverPhotoUrl,
     required this.followers,
     required this.following,
+    required this.context,
   });
 }

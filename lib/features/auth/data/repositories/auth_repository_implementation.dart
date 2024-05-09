@@ -25,6 +25,7 @@ class AuthRepositoryImplementation implements AuthRepository{
   }) async{
     try{
       UserModel userModel = UserModel(
+        id: DateTime.now().microsecondsSinceEpoch,
         email: email, 
         password: password, 
         firstName: firstName, 
@@ -36,8 +37,14 @@ class AuthRepositoryImplementation implements AuthRepository{
         followers: followers,
         following: following,
       );
-      final res = await authDatasource.signUpWithEmailAndPassword(userModel);
-      return right(res);
+      String profilePictureImageUrl = await authDatasource.uploadProfilePicture(profileImageUrl);
+      String coverPhotoImageUrl = await authDatasource.uploadCoverPhoto(coverPhotoUrl);
+      userModel = userModel.copyWith(
+        profileImageUrl: profilePictureImageUrl,
+        coverPhotoUrl: coverPhotoImageUrl,
+      );
+      final response = await authDatasource.signUpWithEmailAndPassword(userModel);
+      return right(response);
     }
     catch (error){
       return left(Failure(error.toString()));

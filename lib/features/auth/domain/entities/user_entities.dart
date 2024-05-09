@@ -1,5 +1,6 @@
 
 class UserEntities{
+  final int id;
   final String email;
   final String password;
   final String firstName;
@@ -12,6 +13,7 @@ class UserEntities{
   final int following;
 
   UserEntities({
+    required this.id,
     required this.email,
     required this.password,
     required this.firstName,

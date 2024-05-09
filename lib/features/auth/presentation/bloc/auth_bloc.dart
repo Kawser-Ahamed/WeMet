@@ -1,4 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wemet/core/status/ui_status.dart';
+import 'package:wemet/features/auth/domain/entities/user_entities.dart';
 import 'package:wemet/features/auth/domain/usecase/auth_usecase.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_event.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_state.dart';
@@ -12,7 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignUpEvent>(_signUpWithemailAndPassword);
   }
 
-  _signUpWithemailAndPassword(SignUpEvent event, Emitter<AuthState> emit)async{
+  Future<void>_signUpWithemailAndPassword(SignUpEvent event, Emitter<AuthState> emit)async{
     final res = await _authUseCase(
       SignUpParams(
         email: event.email, 
@@ -27,9 +32,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         following: event.following,
       )
     );
+
     res.fold(
-      (l) => emit(state.copyWith(message: l.toString())), 
-      (r) => emit(state.copyWith(message: r.fullName)),
+      (l){
+        emit(state.copyWith(message: l.message.toString(),uiStatus: UiStatus.error));
+        ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(duration: const Duration(seconds: 1),content: Text(BlocProvider.of<AuthBloc>(event.context).state.message)));
+      },
+      (r){
+        List<UserEntities> userData = [];
+        userData.add(r);
+        emit(state.copyWith(message: 'Sucess',userData: userData,uiStatus: UiStatus.success));
+      }
     );
+    Navigator.pop(event.context);
   }
 }
