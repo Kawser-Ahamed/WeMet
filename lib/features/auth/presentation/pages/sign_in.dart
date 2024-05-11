@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wemet/config/routes/app_routes_constant.dart';
 import 'package:wemet/core/Color/app_color.dart';
 import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/core/urls/app_image_urls.dart';
+import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:wemet/features/auth/presentation/bloc/auth_event.dart';
+import 'package:wemet/features/auth/presentation/widget/auth_loading.dart';
 import 'package:wemet/features/auth/presentation/widget/custom_textfield.dart';
 
 class SignIn extends StatefulWidget {
@@ -124,7 +128,8 @@ class _SignInState extends State<SignIn> {
                         GestureDetector(
                           onTap: (){
                             if(_formKey.currentState!.validate()){
-
+                              context.read<AuthBloc>().add(SignInEvent(email: emailController.text, password: passwordController.text, context: context));
+                              authLoading(context);
                             }
                           },
                           child:Container(

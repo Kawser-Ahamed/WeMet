@@ -1,5 +1,6 @@
 class AppRoutesConstant{
   static String splashScreen = 'splash_screen';
-  static String signIn = 'sign_in';
-  static String signUp = 'sign_up';
+  static String signIn = 'signIn';
+  static String signUp = 'signUp';
+  static String mainPage = 'mainpage';
 }

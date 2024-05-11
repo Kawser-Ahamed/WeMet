@@ -50,5 +50,15 @@ class AuthRepositoryImplementation implements AuthRepository{
       return left(Failure(error.toString()));
     }
   }
-
+  
+  @override
+  Future<Either<Failure, List<UserModel>>> signInWithEmailAndPassword({required String email, required String password}) async{
+     try{
+       final response = await authDatasource.signInWithEmailAndPassword(email, password);
+       return right(response);
+     }
+     catch(error){
+       return left(Failure(error.toString()));
+     }
+  }
 }

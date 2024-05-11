@@ -7,14 +7,14 @@ import 'package:wemet/core/usecase/usecase.dart';
 import 'package:wemet/features/auth/domain/entities/user_entities.dart';
 import 'package:wemet/features/auth/domain/repositories/auth_repository.dart';
 
-class AuthUseCase implements UseCase<UserEntities,SignUpParams>{
+class SignUpUseCase implements UseCase<UserEntities,SignUpParams>{
   
   AuthRepository authRepository;
-  AuthUseCase(this.authRepository);
+  SignUpUseCase(this.authRepository);
 
   @override
   Future<Either<Failure, UserEntities>> call(SignUpParams params) async{
-    return authRepository.signUpWithEmailAndPassword(
+    return await authRepository.signUpWithEmailAndPassword(
       email: params.email, 
       password: params.password,
        firstName: params.firstName, 

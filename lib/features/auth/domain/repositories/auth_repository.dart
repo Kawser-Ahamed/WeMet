@@ -18,4 +18,9 @@ abstract interface class AuthRepository{
     required int followers,
     required int following,
   });
+
+  Future<Either<Failure,List<UserEntities>>> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  });
 }

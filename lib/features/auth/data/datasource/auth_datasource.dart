@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,9 +8,9 @@ import 'package:wemet/features/auth/data/model/user_model.dart';
 abstract interface class AuthDatasource{
 
   Future<UserModel> signUpWithEmailAndPassword(UserModel userModel);
+  Future<List<UserModel>> signInWithEmailAndPassword(String email,String password);
   Future<String> uploadProfilePicture(File profilePictureFromDevice);
   Future<String> uploadCoverPhoto(File coverPhotoFromDevice);
-
 }
 
 class AuthDatasourceImplementation implements AuthDatasource{
@@ -72,4 +71,42 @@ class AuthDatasourceImplementation implements AuthDatasource{
      }
   }
   
+  @override
+  Future<List<UserModel>> signInWithEmailAndPassword(String email, String password)async {
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email, 
+        password: password
+      )
+      .then((value) => null);
+      return getUser(email);
+    } on FirebaseAuthException catch(e){
+      if(e.code == 'user-not-found'){
+        throw 'No account found with this email';
+      }
+      else if(e.code == 'wrong-password'){
+        throw 'Incorrect Password';
+      }
+      else{
+        throw 'Email or Password is incorrect.Please try again';
+      }
+    }
+    catch(error){
+      throw error.toString();
+    }
+  }
+
+  Future<List<UserModel>> getUser(String email) async{
+    try{
+      List<UserModel> userData = [];
+      QuerySnapshot<Map<String,dynamic>> querySnapshot = await FirebaseFirestore.instance.collection(email).get();
+      for (var values in querySnapshot.docs) {
+        userData.add(UserModel.fromJson(values.data()));
+      }
+      return userData;
+    }
+    catch(error){
+      throw error.toString();
+    }
+  }
 }

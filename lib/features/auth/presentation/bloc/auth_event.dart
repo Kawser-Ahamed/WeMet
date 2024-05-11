@@ -31,3 +31,15 @@ class SignUpEvent extends AuthEvent{
     required this.context,
   });
 }
+
+ class SignInEvent extends AuthEvent{
+     final String email;
+     final String password;
+     BuildContext context;
+     
+     SignInEvent({
+      required this.email,
+      required this.password,
+      required this.context,
+    });
+  }
