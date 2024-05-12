@@ -51,6 +51,7 @@ class WeMet extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp.router(
             routerConfig: AppRoutes.router,
+            //home: const Profile(),
             theme: state.themeData,
             debugShowCheckedModeBanner: false,
           );

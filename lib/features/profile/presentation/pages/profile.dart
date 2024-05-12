@@ -39,23 +39,25 @@ class _ProfileState extends State<Profile> {
           ),
           Positioned(
             top: height * 0.2,
-            bottom: height * 0.5,
+            bottom: 0,
             left: 0,
             right: 0,
-            child: SizedBox(
-              child: Center(
-                child: Container(
-                  height: height * 0.15,
-                  width: height * 0.15,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage(state.userData.first.profileImageUrl),
-                      fit: BoxFit.cover,
+            child: Container(
+              color: Colors.transparent,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: (width >600) ? height * 0 : height * 0.025),
+                  Container(
+                    height: (width >600) ? height * 0.2 : height * 0.15,
+                    width: (width >600) ? height * 0.2 : height * 0.15,
+                    color: Colors.transparent,
+                    child: CircleAvatar(
+                      radius: (width >600) ? height * 0.1 :height * 0.075,
+                      backgroundImage: NetworkImage(state.userData.first.profileImageUrl),
                     ),
-                  ),
-                )
+                  )
+                ],
               ),
             ),
           ),

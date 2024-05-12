@@ -8,9 +8,12 @@ const data = [
         "name" : "Kawser",
     },
     {
-        "name" : "Faria",
+        "name" : "Ahamed",
     }
 ];
+app.get('/',(req,res)=>{
+    res.send(data);
+})
 
 app.get('/get_data',(req,res)=>{
     res.send(data);
