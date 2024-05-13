@@ -33,10 +33,10 @@ class _MainPageState extends State<MainPage> {
     double height = Screen.screenHeight(context);
     double width = Screen.screenWidth(context);
     List<Widget> navBarItem = [
-      Icon(Icons.home,size: width * 0.08,color: (bottomNavBarIndex==0) ? Colors.red:Colors.black),
-      Icon(Icons.search,size: width * 0.08,color: (bottomNavBarIndex==1) ?  Colors.red:Colors.black),
-      Icon(CupertinoIcons.add_circled,size: width * 0.09,color: (bottomNavBarIndex==2) ?  Colors.red:Colors.black),
-      Icon(Icons.notifications,size: width * 0.08,color: (bottomNavBarIndex==3) ?  Colors.red:Colors.black),
+      Icon(Icons.home,size: width * 0.08,color: (bottomNavBarIndex==0) ? Colors.red:null),
+      Icon(Icons.search,size: width * 0.08,color: (bottomNavBarIndex==1) ?  Colors.red:null),
+      Icon(CupertinoIcons.add_circled,size: width * 0.09,color: (bottomNavBarIndex==2) ?  Colors.red:null),
+      Icon(Icons.notifications,size: width * 0.08,color: (bottomNavBarIndex==3) ?  Colors.red:null),
       Container(
         height: width * 0.1,
         width: width * 0.1,
@@ -50,38 +50,41 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     ];
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      bottomNavigationBar: Card(
-        elevation: 0,
-        color: Colors.white,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              top: BorderSide(color: Colors.grey.shade500),
-            )
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: width * 0.05,vertical: height * 0.02),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(
-                  5, 
-                  (index) => InkWell(
-                    onTap: (){
-                      setState(() {
-                        bottomNavBarIndex = index;
-                      });
-                    },
-                    child: navBarItem[index]
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        bottomNavigationBar: Card(
+          elevation: 0,
+          color: Theme.of(context).colorScheme.background,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
+              border: Border(
+                top: BorderSide(color: Colors.grey.shade500),
+              )
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: width * 0.05,vertical: height * 0.02),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: List.generate(
+                    5, 
+                    (index) => InkWell(
+                      onTap: (){
+                        setState(() {
+                          bottomNavBarIndex = index;
+                        });
+                      },
+                      child: navBarItem[index]
+                    ),
                   ),
                 ),
-              ),
+            ),
           ),
         ),
+        body: pages[bottomNavBarIndex],
       ),
-      body: pages[bottomNavBarIndex],
     );
   }
 }

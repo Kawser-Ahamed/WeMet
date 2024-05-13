@@ -17,7 +17,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   
   @override
   Widget build(BuildContext context) {
-    double height = Screen.screenHeight(context);
+    //double height = Screen.screenHeight(context);
     double width = Screen.screenWidth(context);
     return TextFormField(
       controller: widget.controller,
@@ -28,16 +28,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
         }
         return null;
       },
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.grey.shade100,
-        contentPadding: EdgeInsets.symmetric(vertical: height * 0.02),
+        //contentPadding: EdgeInsets.symmetric(vertical: height * 0.02),
         label: Text(widget.label,
           style: TextStyle(
+            color: Colors.black,
             fontSize: (width/Screen.designWidth) * 30,
           ),
         ),
-        prefixIcon: Icon(widget.prefixIcon,size: (width/Screen.designWidth) * 40,),
+        prefixIcon: Icon(widget.prefixIcon,size: (width/Screen.designWidth) * 40,color: Colors.black,),
         suffixIcon: (widget.isPassword) ? InkWell(
           onTap: (){
             setState(() {
@@ -50,7 +52,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
           borderSide: BorderSide(color: Colors.blue),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
         border: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.green),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         floatingLabelBehavior: FloatingLabelBehavior.auto,

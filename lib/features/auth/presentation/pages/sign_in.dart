@@ -86,6 +86,7 @@ class _SignInState extends State<SignIn> {
                           style: GoogleFonts.aBeeZee(
                             fontSize: screenFactor *50,
                             fontWeight : FontWeight.bold,
+                            color: Colors.black,
                           ),
                         ),
                         SizedBox(height: height * 0.03),
@@ -107,6 +108,7 @@ class _SignInState extends State<SignIn> {
                                 style: GoogleFonts.aBeeZee(
                                   fontSize: screenFactor *30,
                                   fontWeight : FontWeight.normal,
+                                  color: Colors.black,
                                 ),
                               ),
                               InkWell(
@@ -167,7 +169,8 @@ class _SignInState extends State<SignIn> {
                               textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: screenFactor * 35,
-                                  fontWeight: FontWeight.bold
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),

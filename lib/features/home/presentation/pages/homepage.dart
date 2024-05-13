@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wemet/features/home/presentation/widget/category_loading.dart';
 import 'package:wemet/features/home/presentation/widget/followers.dart';
+import 'package:wemet/features/home/presentation/widget/shimmer.dart';
 import 'package:wemet/features/home/presentation/widget/wemet_appbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,19 +14,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: const Column(
         children: [
           WemetAppBar(),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Followers(),
-                ],
-              ),
-            )
-          )
+          Followers(),
+          CategoryLoading(),
+          ShimmerLoading(),
         ],
       ),
     );

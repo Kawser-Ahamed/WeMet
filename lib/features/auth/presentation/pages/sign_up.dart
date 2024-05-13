@@ -53,6 +53,7 @@ class _SignUpState extends State<SignUp> {
     ];
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       body: Container(
         height: height,
         width: width,

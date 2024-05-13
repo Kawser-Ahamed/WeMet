@@ -1,10 +1,8 @@
-import 'package:equatable/equatable.dart';
 
-class ThemeEvent extends Equatable {
-  const ThemeEvent();
+class ThemeEvent {
 
-  @override
-  List<Object> get props => [];
+  final bool isDark;
+  ThemeEvent(this.isDark);
+  
 }
 
-class ChangeThemeEvent extends ThemeEvent{}

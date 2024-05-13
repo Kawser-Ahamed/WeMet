@@ -15,7 +15,7 @@ class _UIState extends State<UI> {
   
   List<Model> myValues = [];
   Future<List<Model>> getdata() async{
-    var response = await http.get(Uri.parse('http://192.168.0.107:3000/get_data'));
+    var response = await http.get(Uri.parse('https://wemet-kawser-ahameds-projects.vercel.app/'));
     var data = jsonDecode(response.body.toString());
     for(var values in data){
       myValues.add(Model.fromJson(values));

@@ -18,7 +18,7 @@ class _ProfileState extends State<Profile> {
     double height = Screen.screenHeight(context);
     double width = Screen.screenWidth(context);
     double screenFactor = (width/Screen.designWidth);
-    AuthState state =BlocProvider.of<AuthBloc>(context).state;
+    AuthState state =BlocProvider.of<AuthBloc>(context,listen: false).state;
     return Scaffold(
       body: Stack(
         children: [

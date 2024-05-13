@@ -68,28 +68,12 @@ class _BioImagerDesignState extends State<BioImagerDesign> {
                     child: Column(
                       children: [
                         SizedBox(height: height * 0.01),
-                        (widget.profilePicture.imageFromDevice == null) ? Container(
-                          height: height * 0.1,
-                          width: height * 0.1,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.transparent,
-                            image: DecorationImage(
-                              image: AssetImage(AppImageUrls.avatar),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ) : Container(
-                          height: height * 0.1,
-                          width: height * 0.1,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.transparent,
-                            image: DecorationImage(
-                              image: FileImage(widget.profilePicture.imageFromDevice!),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                        (widget.profilePicture.imageFromDevice == null) ? CircleAvatar(
+                          radius: height * 0.05,
+                          backgroundImage: AssetImage(AppImageUrls.avatar),
+                        ) : CircleAvatar(
+                          radius: height * 0.05,
+                          backgroundImage:  FileImage(widget.profilePicture.imageFromDevice!),
                         ),
                         SizedBox(height: height * 0.01),
                         Row(

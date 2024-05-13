@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wemet/config/routes/app_routes.dart';
 import 'package:wemet/config/theme/bloc/theme_bloc.dart';
-import 'package:wemet/config/theme/bloc/theme_state.dart';
+import 'package:wemet/config/theme/theme.dart';
 import 'package:wemet/features/auth/data/datasource/auth_datasource.dart';
 import 'package:wemet/features/auth/data/repositories/auth_repository_implementation.dart';
 import 'package:wemet/features/auth/domain/usecase/signin_usecase.dart';
@@ -47,12 +47,13 @@ class WeMet extends StatelessWidget {
           create: (context)=> ThemeBloc(),
         ),
       ],
-      child: BlocBuilder<ThemeBloc,ThemeState>(
-        builder: (context, state) {
+      child: BlocBuilder<ThemeBloc,ThemeMode>(
+        builder: (context, themeState) {
           return MaterialApp.router(
             routerConfig: AppRoutes.router,
-            //home: const Profile(),
-            theme: state.themeData,
+            theme: lightTheme,
+            themeMode: themeState,
+            darkTheme: darkTheme,
             debugShowCheckedModeBanner: false,
           );
         },
