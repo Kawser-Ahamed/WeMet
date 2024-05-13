@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wemet/features/home/presentation/widget/category_loading.dart';
 import 'package:wemet/features/home/presentation/widget/followers.dart';
+import 'package:wemet/features/home/presentation/widget/post_category.dart';
 import 'package:wemet/features/home/presentation/widget/shimmer.dart';
 import 'package:wemet/features/home/presentation/widget/wemet_appbar.dart';
 
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           WemetAppBar(),
           Followers(),
-          CategoryLoading(),
+          PostCategory(),
           ShimmerLoading(),
         ],
       ),

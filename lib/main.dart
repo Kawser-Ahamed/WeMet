@@ -10,6 +10,10 @@ import 'package:wemet/features/auth/data/repositories/auth_repository_implementa
 import 'package:wemet/features/auth/domain/usecase/signin_usecase.dart';
 import 'package:wemet/features/auth/domain/usecase/signup_usecase.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:wemet/features/home/data/datasource/post_category_datasource.dart';
+import 'package:wemet/features/home/data/repositories/post_category_repository_implementation.dart';
+import 'package:wemet/features/home/domain/usecase/post_category_usecase.dart';
+import 'package:wemet/features/home/presentation/bloc/post_category_bloc.dart';
 import 'package:wemet/firebase_options.dart';
 
 void main()async{
@@ -45,6 +49,15 @@ class WeMet extends StatelessWidget {
         ),
         BlocProvider(
           create: (context)=> ThemeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => PostCategoryBloc(
+            postCategoryUseCase: PostCategoryUseCase(
+              PostCategoryRepositoryImplementation(
+                PostCategoryDatasourceImplementation(),
+              ),
+            ),
+          ),
         ),
       ],
       child: BlocBuilder<ThemeBloc,ThemeMode>(
