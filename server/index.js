@@ -32,30 +32,28 @@ async function dbConnect(){
 
 dbConnect();
 
-const data = [
-    {
-        "name" : "Kawser",
-    },
-    {
-        "name" : "Faria Shaowly",
-    }
-];
-
-app.get('/',(req,res)=>{
-    res.send(data);
-})
-
-
-const databse = client.db(databaseName).collection("Post-Category");
+const postCategoryCollection = client.db(databaseName).collection("post-category");
 app.get("/post_category", async (req,res)=>{
     try{
-       var values = databse.find();
+       var values = postCategoryCollection.find();
        var json = await values.toArray();
        res.send(json);
     }
     catch(error){
         console.log(error);
     }
+});
+
+const uploadPostCollection = client.db(databaseName).collection("all-post");
+app.post("/upload_post/:email", async (req,res)=>{
+    const uploadPostInProfile = client.db(databaseName).collection(`${req.params.email}-post`);
+    uploadPostCollection.insertOne(req.body)
+    .then((value)=>{
+        uploadPostInProfile.insertOne(req.body)
+        .then((value)=>res.send('success'))
+        .catch((error)=> res.send(error));
+    })
+    .catch((error)=> res.send(error));
 });
 
 app.listen(port,()=>{

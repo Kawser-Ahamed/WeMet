@@ -8,4 +8,6 @@ class AppColor{
   static Color welcomePageThirdBackgroundColor = const Color.fromRGBO(124,137,205,1);
   static Color signinPageDarkbackgroundColor = const Color.fromRGBO(23,27,38, 1);
   static Color signinPageRedbackgroundColor = const Color.fromRGBO(206,26,91, 1);
+  static Color uploadPagePrimaryColor = const Color.fromRGBO(83,76,206, 1);
+  static Color uploadPageSecondaryColor = const Color.fromRGBO(250,234,211, 1);
 }

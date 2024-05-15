@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wemet/core/reusable/loading.dart';
 
-authLoading(BuildContext context){
+mainLoading(BuildContext context){
   return showDialog(
     barrierDismissible: false,
     context: context, 
