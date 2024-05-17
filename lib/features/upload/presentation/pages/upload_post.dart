@@ -22,7 +22,21 @@ class UploadPost extends StatefulWidget {
 class _UploadPostState extends State<UploadPost> {
 
   TextEditingController captionController = TextEditingController();
+  String ? postCategory;
   WemetImagePicker wemetImagePicker = WemetImagePicker();
+  String ? _optionValue;
+  final List<String> _options = [
+    "Cricket",
+    'Football',
+    "Political",
+  ];
+
+
+  @override
+  void dispose() {
+    captionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,6 +146,43 @@ class _UploadPostState extends State<UploadPost> {
                       ),
                       SizedBox(height: height * 0.01),
                       UploadPostTextField(captionController: captionController,),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: height * 0.02),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.background,
+                          border: Border.all(
+                            color: Colors.grey.shade500,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              isExpanded: true,
+                              value: _optionValue,
+                              hint: Text('Select post category',
+                                style: TextStyle(
+                                  fontSize: screenFactor * 30,
+                                ),
+                              ),
+                              items: _options.map((value){
+                                return DropdownMenuItem(
+                                  value: value,
+                                  child: Text(value,
+                                    style: TextStyle(
+                                      fontSize: screenFactor * 30,
+                                    ),
+                                  ),
+                                );
+                              }).toList(), 
+                              onChanged: (value) {
+                                _optionValue = value.toString();
+                                setState(() {});
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
                       SizedBox(height: height * 0.01),
                       Text("Attachment",
                         style: TextStyle(
@@ -156,6 +207,7 @@ class _UploadPostState extends State<UploadPost> {
                                 email: BlocProvider.of<AuthBloc>(context).state.userData.first.email, 
                                 uploaderProfilePictureImageUrl: BlocProvider.of<AuthBloc>(context).state.userData.first.profileImageUrl,
                                 context: context,
+                                category: (_optionValue==null) ? 'none' : _optionValue!.toLowerCase(),
                               ),
                             );
                             captionController.text = "";
@@ -171,6 +223,7 @@ class _UploadPostState extends State<UploadPost> {
                                 email: BlocProvider.of<AuthBloc>(context).state.userData.first.email, 
                                 uploaderProfilePictureImageUrl: BlocProvider.of<AuthBloc>(context).state.userData.first.profileImageUrl,
                                 context: context,
+                                category: (_optionValue==null) ? 'none' : _optionValue!.toLowerCase(),
                               )
                             );
                             captionController.text = "";

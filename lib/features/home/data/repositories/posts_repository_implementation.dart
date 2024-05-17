@@ -10,9 +10,9 @@ class PostsRepositoryImplementation implements PostsRepository{
   PostsRepositoryImplementation(this.postsDatasource);
 
   @override
-  Future<Either<Failure, List<PostsModel>>> getPosts() async{
+  Future<Either<Failure, List<PostsModel>>> getPosts(String url) async{
     try{
-      final response = await postsDatasource.getPosts();
+      final response = await postsDatasource.getPosts(url);
       return right(response);
     }
     catch(error){

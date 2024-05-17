@@ -13,6 +13,7 @@ abstract interface class UploadPostRepository{
     required String uploaderName,
     required String email,
     required String uploaderProfilePictureImageUrl,
+    required String category,
   });
 
   Future<Either<Failure,String>> uploadPostWithoutImage({
@@ -22,5 +23,6 @@ abstract interface class UploadPostRepository{
     required String uploaderName,
     required String email,
     required String uploaderProfilePictureImageUrl,
+    required String category,
   });
 }

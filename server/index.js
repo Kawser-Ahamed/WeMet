@@ -44,20 +44,30 @@ app.get("/post_category", async (req,res)=>{
     }
 });
 
-const uploadPostCollection = client.db(databaseName).collection("all-post");
-app.post("/upload_post/:email", async (req,res)=>{
+const uploadPostCollection = client.db(databaseName).collection("all");
+app.post("/upload_post/:email/:category", async (req,res)=>{
     const uploadPostInProfile = client.db(databaseName).collection(`${req.params.email}-post`);
+    const categoryPostCollection = client.db(databaseName).collection(req.params.category);
     uploadPostCollection.insertOne(req.body)
     .then((value)=>{
         uploadPostInProfile.insertOne(req.body)
-        .then((value)=>res.send('success'))
+        .then((value)=>{
+            if(req.params.category != 'none'){
+                categoryPostCollection.insertOne(req.body)
+                .then((value)=>res.send('Your post is successfully uploaded'))
+                .catch((error)=>res.send(error));
+            }
+            else{
+                res.send('Your post is successfully uploaded');
+            }
+        })
         .catch((error)=> res.send(error));
     })
     .catch((error)=> res.send(error));
 });
 
-const allPostsCollection = client.db(databaseName).collection("all-post");
-app.get('/get_all_post', async (req,res)=>{
+app.get('/get_all_post/:category', async (req,res)=>{
+    const allPostsCollection = client.db(databaseName).collection(req.params.category);
     try{
        var values = allPostsCollection.find();
        var json = await values.toArray();
@@ -66,7 +76,6 @@ app.get('/get_all_post', async (req,res)=>{
     catch(error){
         res.send(error);
     }
-
 });
 
 app.get('/profile_data/:email', async(req,res)=>{

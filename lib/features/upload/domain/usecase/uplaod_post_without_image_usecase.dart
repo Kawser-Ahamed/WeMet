@@ -17,6 +17,7 @@ class UploadPostWithoutImageUsecase implements UseCase<String,UploadPostWithoutI
       uploaderName: params.uploaderName,
       email: params.emai,
       uploaderProfilePictureImageUrl: params.uploaderProfilePictureImageUrl,
+      category: params.category,
     );
   }
 }
@@ -29,6 +30,7 @@ class UploadPostWithoutImageParams{
   final String uploaderName;
   final String emai;
   final String uploaderProfilePictureImageUrl;
+  final String category;
   
   UploadPostWithoutImageParams({
     required this.id,
@@ -37,5 +39,6 @@ class UploadPostWithoutImageParams{
     required this.uploaderName,
     required this.emai,
     required this.uploaderProfilePictureImageUrl,
+    required this.category,
   });
 }

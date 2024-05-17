@@ -20,6 +20,7 @@ class UploadPostWithImageUsecase implements UseCase<String,UploadPostWithImagePa
       uploaderName: params.uploaderName,
       email: params.emai,
       uploaderProfilePictureImageUrl: params.uploaderProfilePictureImageUrl,
+      category: params.category,
     );
   }
 }
@@ -33,6 +34,7 @@ class UploadPostWithImageParams{
   final String uploaderName;
   final String emai;
   final String uploaderProfilePictureImageUrl;
+  final String category;
   
   UploadPostWithImageParams({
     required this.id,
@@ -42,5 +44,6 @@ class UploadPostWithImageParams{
     required this.uploaderName,
     required this.emai,
     required this.uploaderProfilePictureImageUrl,
+    required this.category,
   });
 }

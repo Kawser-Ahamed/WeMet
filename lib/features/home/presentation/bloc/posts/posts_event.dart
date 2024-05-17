@@ -5,4 +5,8 @@ class PostsEvent extends Equatable{
   List<Object?> get props => throw UnimplementedError();
 }
 
-class AllPostsEvent extends PostsEvent{}
+class AllPostsEvent extends PostsEvent{
+
+  final String url;
+  AllPostsEvent({required this.url});
+}

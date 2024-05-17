@@ -12,6 +12,7 @@ class PostCategoryBloc extends Bloc<PostCategoryEvent, PostCategoryState> {
     required PostCategoryUseCase postCategoryUseCase,
   }) :_postCategoryUseCase= postCategoryUseCase,super(const PostCategoryState()) {
      on<PostCategoryEvent>(_getPostCategory);
+     on<SelectedCategoryevent>(_changeSelectedIndex);
   }
 
    Future _getPostCategory(PostCategoryEvent event, Emitter<PostCategoryState> emit) async{
@@ -20,5 +21,9 @@ class PostCategoryBloc extends Bloc<PostCategoryEvent, PostCategoryState> {
       (l) => emit(state.copyWith(uiStatus: UiStatus.error,errorMessage: l.message)), 
       (r) => emit(state.copyWith(postCategoryData: r,uiStatus: UiStatus.success)),
      );
+   }
+
+   void _changeSelectedIndex(SelectedCategoryevent event, Emitter<PostCategoryState> emit){
+    emit(state.copyWith(selectedIndex: event.index));
    }
 }

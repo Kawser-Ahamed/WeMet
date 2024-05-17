@@ -6,7 +6,7 @@ import 'package:wemet/features/upload/data/model/upload_post_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract interface class UploadPostDatasource{
-  Future<String> uploadPost(UploadPostModel uploadPostModel);
+  Future<String> uploadPost(UploadPostModel uploadPostModel,String cateory);
   Future<String> uploadAttachmentImage({required File imageUrl});
 }
 
@@ -27,11 +27,11 @@ class UploadPostDatasourceImplementation implements UploadPostDatasource{
   }
 
   @override
-  Future<String> uploadPost(UploadPostModel uploadPostModel) async{
+  Future<String> uploadPost(UploadPostModel uploadPostModel,String category) async{
     try{
       String jsonData = jsonEncode(uploadPostModel.toJson());
       var response = await http.post(
-        Uri.parse('${Serverurls.uploadPostUrl}/${uploadPostModel.email}'),
+        Uri.parse('${Serverurls.uploadPostUrl}/${uploadPostModel.email}/$category'),
         headers: <String,String> {
           'Content-Type' : 'application/json; charset=UTF-8',
         },
@@ -40,7 +40,7 @@ class UploadPostDatasourceImplementation implements UploadPostDatasource{
       if(response.statusCode==200){
         return response.body.toString();
       }
-      return "Error";
+      return response.body.toString();
     }
     catch(error){
       return error.toString();

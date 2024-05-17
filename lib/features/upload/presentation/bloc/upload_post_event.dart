@@ -21,6 +21,7 @@ class UploadPostWithImageByUserEvent extends UploadPostEvent{
   final String email;
   final String uploaderProfilePictureImageUrl;
   final BuildContext context;
+  final String category;
 
   const UploadPostWithImageByUserEvent({
     required this.id,
@@ -31,6 +32,7 @@ class UploadPostWithImageByUserEvent extends UploadPostEvent{
     required this.email,
     required this.uploaderProfilePictureImageUrl,
     required this.context,
+    required this.category,
   });
   
 }
@@ -44,6 +46,7 @@ class UploadPostWithoutImageByUserEvent extends UploadPostEvent{
   final String email;
   final String uploaderProfilePictureImageUrl;
   final BuildContext context;
+  final String category;
 
   const UploadPostWithoutImageByUserEvent({
     required this.id,
@@ -53,6 +56,7 @@ class UploadPostWithoutImageByUserEvent extends UploadPostEvent{
     required this.email,
     required this.uploaderProfilePictureImageUrl,
     required this.context,
+    required this.category,
   });
   
 }

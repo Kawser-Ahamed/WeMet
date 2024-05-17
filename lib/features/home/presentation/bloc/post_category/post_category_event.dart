@@ -7,3 +7,8 @@ class PostCategoryEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class SelectedCategoryevent extends PostCategoryEvent{
+
+  final int index;
+  const SelectedCategoryevent({required this.index});
+}

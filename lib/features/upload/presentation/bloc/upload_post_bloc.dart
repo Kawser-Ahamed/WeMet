@@ -31,7 +31,8 @@ class UploadPostBloc extends Bloc<UploadPostEvent, UploadPostState> {
         dateTime: event.dateTime, 
         uploaderName: event.uploaderName, 
         emai: event.email, 
-        uploaderProfilePictureImageUrl: event.uploaderProfilePictureImageUrl
+        uploaderProfilePictureImageUrl: event.uploaderProfilePictureImageUrl,
+        category: event.category,
       ),
     );
     response.fold(
@@ -57,7 +58,8 @@ class UploadPostBloc extends Bloc<UploadPostEvent, UploadPostState> {
         dateTime: event.dateTime, 
         uploaderName: event.uploaderName, 
         emai: event.email, 
-        uploaderProfilePictureImageUrl: event.uploaderProfilePictureImageUrl
+        uploaderProfilePictureImageUrl: event.uploaderProfilePictureImageUrl,
+        category: event.category,
       ),
     );
     response.fold(

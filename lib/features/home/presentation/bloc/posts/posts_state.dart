@@ -4,24 +4,24 @@ import 'package:wemet/features/home/domain/entities/posts_entities.dart';
 
 class AllPostsState extends Equatable{
   
-  final List<PostsEntities> allPostData;
+  final List<PostsEntities> postData;
   final UiStatus uiStatus;
   final String message;
 
   const AllPostsState({
-    this.allPostData = const [],
+    this.postData = const [],
     this.uiStatus = UiStatus.loading,
     this.message = '',
   });
 
-  AllPostsState copyWith({List<PostsEntities> ? allPostData, UiStatus ? uiStatus, String ? message}){
+  AllPostsState copyWith({List<PostsEntities> ? postData, UiStatus ? uiStatus, String ? message}){
     return AllPostsState(
-      allPostData: allPostData ?? this.allPostData,
+      postData: postData ?? this.postData,
       message: message ?? this.message,
       uiStatus: uiStatus ?? this.uiStatus,
     );
   }
 
   @override
-  List<Object?> get props => [allPostData,uiStatus,message];
+  List<Object?> get props => [postData,uiStatus,message];
 }

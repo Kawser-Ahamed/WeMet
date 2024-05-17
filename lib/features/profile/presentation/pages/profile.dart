@@ -1,3 +1,4 @@
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -179,10 +180,13 @@ class _ProfileState extends State<Profile> {
                                       ],
                                     ),
                                     (state.profileData[index].caption.isNotEmpty) 
-                                    ? Text(state.profileData[index].caption,
+                                    ? ExpandableText(
+                                      state.profileData[index].caption,
+                                      maxLines: 3,
+                                      expandText: "Read more",
+                                      collapseText: "Read less",
                                       style: TextStyle(
                                         fontSize: screenFactor * 30,
-                                        fontWeight: FontWeight.normal
                                       ),
                                     ) : const SizedBox(),
                                     (state.profileData[index].imageUrl.isNotEmpty) 

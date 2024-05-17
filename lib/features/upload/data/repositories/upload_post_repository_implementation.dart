@@ -19,7 +19,8 @@ class UploadPostRepositoriesImplementation implements UploadPostRepository{
     required String dateTime, 
     required String uploaderName,
     required String email,
-    required String uploaderProfilePictureImageUrl
+    required String uploaderProfilePictureImageUrl,
+    required String category,
   }) async{
     try{
       String imageUrlFromFirebase = '';
@@ -38,7 +39,7 @@ class UploadPostRepositoriesImplementation implements UploadPostRepository{
           imageUrl: imageUrlFromFirebase,
         );
 
-      final response = await uploadPostDatasource.uploadPost(uploadPostModel);
+      final response = await uploadPostDatasource.uploadPost(uploadPostModel,category);
       return right(response);
     }
     catch(error){
@@ -53,7 +54,8 @@ class UploadPostRepositoriesImplementation implements UploadPostRepository{
     required String dateTime, 
     required String uploaderName, 
     required String email, 
-    required String uploaderProfilePictureImageUrl
+    required String uploaderProfilePictureImageUrl,
+    required String category,
    }) async{
     try{
       UploadPostModel uploadPostModel = UploadPostModel(
@@ -66,7 +68,7 @@ class UploadPostRepositoriesImplementation implements UploadPostRepository{
         uploaderProfilePictureImageUrl: uploaderProfilePictureImageUrl
       );
       
-      final response = await uploadPostDatasource.uploadPost(uploadPostModel);
+      final response = await uploadPostDatasource.uploadPost(uploadPostModel,category);
       return right(response);
     }
     catch(error){
