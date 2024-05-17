@@ -56,6 +56,31 @@ app.post("/upload_post/:email", async (req,res)=>{
     .catch((error)=> res.send(error));
 });
 
+const allPostsCollection = client.db(databaseName).collection("all-post");
+app.get('/get_all_post', async (req,res)=>{
+    try{
+       var values = allPostsCollection.find();
+       var json = await values.toArray();
+       res.send(json);
+    }
+    catch(error){
+        res.send(error);
+    }
+
+});
+
+app.get('/profile_data/:email', async(req,res)=>{
+    try{
+        const profileDataCollection = client.db(databaseName).collection(`${req.params.email}-post`);
+        var values = profileDataCollection.find();
+        var json = await values.toArray()
+        res.send(json);
+    }
+    catch(error){
+        res.send(error);
+    }
+});
+
 app.listen(port,()=>{
     console.log(`Server Running on ${port}`);
 })

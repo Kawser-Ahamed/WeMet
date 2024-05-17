@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wemet/core/status/ui_status.dart';
 import 'package:wemet/core/usecase/usecase.dart';
 import 'package:wemet/features/home/domain/usecase/post_category_usecase.dart';
-import 'package:wemet/features/home/presentation/bloc/post_category_event.dart';
-import 'package:wemet/features/home/presentation/bloc/post_category_state.dart';
+import 'package:wemet/features/home/presentation/bloc/post_category/post_category_event.dart';
+import 'package:wemet/features/home/presentation/bloc/post_category/post_category_state.dart';
 
 class PostCategoryBloc extends Bloc<PostCategoryEvent, PostCategoryState> {
 

@@ -10,6 +10,8 @@ import 'package:wemet/features/auth/domain/usecase/signin_usecase.dart';
 import 'package:wemet/features/auth/domain/usecase/signup_usecase.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_event.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_state.dart';
+import 'package:wemet/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:wemet/features/profile/presentation/bloc/profile_event.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignUpUseCase _signupUseCase;
@@ -63,6 +65,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (r){
         emit(state.copyWith(message: 'Successfull',userData: r,uiStatus: UiStatus.success));
         ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(duration: const Duration(seconds: 1),content: Text(BlocProvider.of<AuthBloc>(event.context).state.userData.first.fullName)));
+        event.context.read<ProfileBloc>().add(ProfileDataEvent(email: state.userData.first.email));
         GoRouter.of(event.context).pushNamed(AppRoutesConstant.mainPage);
       }
     );

@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 
 class UploadPostEvent extends Equatable {
   const UploadPostEvent();
@@ -19,6 +20,7 @@ class UploadPostWithImageByUserEvent extends UploadPostEvent{
   final String uploaderName;
   final String email;
   final String uploaderProfilePictureImageUrl;
+  final BuildContext context;
 
   const UploadPostWithImageByUserEvent({
     required this.id,
@@ -28,6 +30,7 @@ class UploadPostWithImageByUserEvent extends UploadPostEvent{
     required this.uploaderName,
     required this.email,
     required this.uploaderProfilePictureImageUrl,
+    required this.context,
   });
   
 }
@@ -40,6 +43,7 @@ class UploadPostWithoutImageByUserEvent extends UploadPostEvent{
   final String uploaderName;
   final String email;
   final String uploaderProfilePictureImageUrl;
+  final BuildContext context;
 
   const UploadPostWithoutImageByUserEvent({
     required this.id,
@@ -48,6 +52,7 @@ class UploadPostWithoutImageByUserEvent extends UploadPostEvent{
     required this.uploaderName,
     required this.email,
     required this.uploaderProfilePictureImageUrl,
+    required this.context,
   });
   
 }

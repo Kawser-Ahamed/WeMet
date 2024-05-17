@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:wemet/core/Color/app_color.dart';
 import 'package:wemet/core/responsive/screen.dart';
+import 'package:wemet/core/reusable/main_loading.dart';
 import 'package:wemet/core/reusable/wemet_image_picker.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wemet/features/upload/presentation/bloc/upload_post_bloc.dart';
@@ -141,32 +143,38 @@ class _UploadPostState extends State<UploadPost> {
                       SizedBox(height: height * 0.02),
                       InkWell(
                         onTap:(){
+                          DateFormat dateFormat =  DateFormat("dd-MM-yyyy HH:mm");
+                          String currentDateTime = dateFormat.format(DateTime.now());
                           if(wemetImagePicker.imageFromDevice != null){
-                            DateTime currentDateTime = DateTime.now();
                             context.read<UploadPostBloc>().add(
                               UploadPostWithImageByUserEvent(
                                 id: DateTime.now().millisecondsSinceEpoch, 
                                 caption: captionController.text, 
                                 imageUrl: wemetImagePicker.imageFromDevice!,
-                                dateTime: "${currentDateTime.day}-${currentDateTime.month}-${currentDateTime.year} ${currentDateTime.hour}:${currentDateTime.minute}", 
+                                dateTime: currentDateTime,
                                 uploaderName: BlocProvider.of<AuthBloc>(context).state.userData.first.fullName, 
                                 email: BlocProvider.of<AuthBloc>(context).state.userData.first.email, 
-                                uploaderProfilePictureImageUrl: BlocProvider.of<AuthBloc>(context).state.userData.first.profileImageUrl
+                                uploaderProfilePictureImageUrl: BlocProvider.of<AuthBloc>(context).state.userData.first.profileImageUrl,
+                                context: context,
                               ),
                             );
+                            captionController.text = "";
+                            mainLoading(context);
                           }
                           else if(captionController.text.isNotEmpty){
-                            DateTime currentDateTime = DateTime.now();
                             context.read<UploadPostBloc>().add(
                               UploadPostWithoutImageByUserEvent(
                                 id: DateTime.now().millisecondsSinceEpoch, 
                                 caption: captionController.text,
-                                dateTime: "${currentDateTime.day}-${currentDateTime.month}-${currentDateTime.year} ${currentDateTime.hour}:${currentDateTime.minute}", 
+                                dateTime: currentDateTime,
                                 uploaderName: BlocProvider.of<AuthBloc>(context).state.userData.first.fullName, 
                                 email: BlocProvider.of<AuthBloc>(context).state.userData.first.email, 
-                                uploaderProfilePictureImageUrl: BlocProvider.of<AuthBloc>(context).state.userData.first.profileImageUrl
+                                uploaderProfilePictureImageUrl: BlocProvider.of<AuthBloc>(context).state.userData.first.profileImageUrl,
+                                context: context,
                               )
                             );
+                            captionController.text = "";
+                            mainLoading(context);
                           }
                         },
                         child: Container(

@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_state.dart';
+import 'package:wemet/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:wemet/features/profile/presentation/bloc/profile_state.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -13,13 +16,17 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
+  final IconData globe = const IconData(0xf68d);
+
   @override
   Widget build(BuildContext context) {
     double height = Screen.screenHeight(context);
     double width = Screen.screenWidth(context);
     double screenFactor = (width/Screen.designWidth);
-    AuthState state =BlocProvider.of<AuthBloc>(context,listen: false).state;
+    AuthState state = BlocProvider.of<AuthBloc>(context,listen: false).state;
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
         children: [
           Positioned(
@@ -106,6 +113,7 @@ class _ProfileState extends State<Profile> {
             top: height * 0.4,
             left: 0,
             right: 0,
+            bottom: 0,
             child: Column(
               children: [
                 Text(state.userData.first.fullName,
@@ -120,11 +128,91 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                Expanded(
+                  child: Container(
+                    color: Theme.of(context).colorScheme.background,
+                    child: BlocBuilder<ProfileBloc,ProfileState>(
+                      builder: (context, state) {
+                        return ListView.builder(
+                          itemCount: state.profileData.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              color: Theme.of(context).colorScheme.background,
+                              elevation: 0,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: height * 0.03,
+                                          backgroundImage: NetworkImage(state.profileData[index].uploaderProfilePictureImageUrl),
+                                        ),
+                                        SizedBox(width: width * 0.05),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(state.profileData[index].uploaderName,
+                                                style: GoogleFonts.aBeeZee(
+                                                  fontSize: screenFactor * 30,
+                                                  fontWeight: FontWeight.bold
+                                                ),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(state.profileData[index].dateTime,
+                                                    style: TextStyle(
+                                                      fontSize: screenFactor * 30,
+                                                      fontWeight: FontWeight.normal
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: width * 0.03),
+                                                  Icon(CupertinoIcons.globe,size: screenFactor * 40,),
+                                                ],
+                                              )
+                                            ],
+                                          )
+                                        ),
+                                      ],
+                                    ),
+                                    (state.profileData[index].caption.isNotEmpty) 
+                                    ? Text(state.profileData[index].caption,
+                                      style: TextStyle(
+                                        fontSize: screenFactor * 30,
+                                        fontWeight: FontWeight.normal
+                                      ),
+                                    ) : const SizedBox(),
+                                    (state.profileData[index].imageUrl.isNotEmpty) 
+                                    ? Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(height: height * 0.02),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(screenFactor * 30),
+                                          child: Image.network(state.profileData[index].imageUrl)
+                                        )
+                                      ],
+                                    ): const SizedBox(),
+                                    SizedBox(height: height * 0.02),
+                                    Icon(Icons.comment,size: screenFactor * 40),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  )
+                ),
               ],
             )
           ),
         ],
-      )
+      ),
     );
   }
 }

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/core/status/ui_status.dart';
-import 'package:wemet/features/home/presentation/bloc/post_category_bloc.dart';
-import 'package:wemet/features/home/presentation/bloc/post_category_event.dart';
-import 'package:wemet/features/home/presentation/bloc/post_category_state.dart';
+import 'package:wemet/features/home/presentation/bloc/post_category/post_category_bloc.dart';
+import 'package:wemet/features/home/presentation/bloc/post_category/post_category_event.dart';
+import 'package:wemet/features/home/presentation/bloc/post_category/post_category_state.dart';
 import 'package:wemet/features/home/presentation/widget/category_loading.dart';
 
 class PostCategory extends StatefulWidget {

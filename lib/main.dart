@@ -5,19 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wemet/config/routes/app_routes.dart';
 import 'package:wemet/config/theme/bloc/theme_bloc.dart';
 import 'package:wemet/config/theme/theme.dart';
-import 'package:wemet/features/auth/data/datasource/auth_datasource.dart';
-import 'package:wemet/features/auth/data/repositories/auth_repository_implementation.dart';
-import 'package:wemet/features/auth/domain/usecase/signin_usecase.dart';
-import 'package:wemet/features/auth/domain/usecase/signup_usecase.dart';
+import 'package:wemet/core/dependency/init_dependency.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:wemet/features/home/data/datasource/post_category_datasource.dart';
-import 'package:wemet/features/home/data/repositories/post_category_repository_implementation.dart';
-import 'package:wemet/features/home/domain/usecase/post_category_usecase.dart';
-import 'package:wemet/features/home/presentation/bloc/post_category_bloc.dart';
-import 'package:wemet/features/upload/data/datasource/upload_post_datasource.dart';
-import 'package:wemet/features/upload/data/repositories/upload_post_repository_implementation.dart';
-import 'package:wemet/features/upload/domain/usecase/uplaod_post_without_image_usecase.dart';
-import 'package:wemet/features/upload/domain/usecase/upload_post_with_image_usecase.dart';
+import 'package:wemet/features/home/presentation/bloc/post_category/post_category_bloc.dart';
+import 'package:wemet/features/home/presentation/bloc/posts/posts_bloc.dart';
+import 'package:wemet/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:wemet/features/upload/presentation/bloc/upload_post_bloc.dart';
 import 'package:wemet/firebase_options.dart';
 
@@ -26,6 +18,7 @@ void main()async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await initDependency();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
   runApp(const WeMet());
 }
@@ -38,45 +31,22 @@ class WeMet extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context)=>
-          AuthBloc(
-            signupUseCase: SignUpUseCase(
-              AuthRepositoryImplementation(
-                AuthDatasourceImplementation(),
-              ),
-            ),
-            singInUseCase: SignInUseCase(
-              AuthRepositoryImplementation(
-                AuthDatasourceImplementation(),
-              ),
-            ),
-          ),
+          create: (context)=> serviceLocator<AuthBloc>(),
         ),
         BlocProvider(
           create: (context)=> ThemeBloc(),
         ),
         BlocProvider(
-          create: (context) => PostCategoryBloc(
-            postCategoryUseCase: PostCategoryUseCase(
-              PostCategoryRepositoryImplementation(
-                PostCategoryDatasourceImplementation(),
-              ),
-            ),
-          ),
+          create: (context) => serviceLocator<PostCategoryBloc>(),
         ),
         BlocProvider(
-          create: (context) => UploadPostBloc(
-            uploadPostWithImageUsecase: UploadPostWithImageUsecase(
-              UploadPostRepositoriesImplementation(
-                UploadPostDatasourceImplementation(),
-              ),
-            ),
-            uploadPostWithoutImageUsecase: UploadPostWithoutImageUsecase(
-              UploadPostRepositoriesImplementation(
-                UploadPostDatasourceImplementation(),
-              ),
-            ),
-          ),
+          create: (context) => serviceLocator<UploadPostBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => serviceLocator<PostsBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => serviceLocator<ProfileBloc>(),
         ),
       ],
       child: BlocBuilder<ThemeBloc,ThemeMode>(
