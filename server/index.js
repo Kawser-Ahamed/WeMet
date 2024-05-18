@@ -90,6 +90,25 @@ app.get('/profile_data/:email', async(req,res)=>{
     }
 });
 
+app.post('/upload_comment/:id', (req,res)=>{
+    const uploadCommentCollection = client.db(databaseName).collection(`post-no-${req.params.id}-comments`);
+    uploadCommentCollection.insertOne(req.body)
+    .then((value)=> res.send('Your Comment Successfully Uploaded'))
+    .catch((error)=> res.send(error));
+});
+
+app.get('/fetch_comment/:id', async (req,res)=>{
+    const fetchCommentCollection = client.db(databaseName).collection(`post-no-${req.params.id}-comments`);
+    try{
+        var values = fetchCommentCollection.find();
+        var json = await values.toArray();
+        res.send(json);
+    }
+    catch(error){
+        res.send(error);
+    }
+});
+
 app.listen(port,()=>{
     console.log(`Server Running on ${port}`);
 })

@@ -115,104 +115,108 @@ class _ProfileState extends State<Profile> {
             left: 0,
             right: 0,
             bottom: 0,
-            child: Column(
-              children: [
-                Text(state.userData.first.fullName,
-                  style: TextStyle(
-                    fontSize: screenFactor * 35,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(state.userData.first.bio,
-                  style: TextStyle(
-                    fontSize: screenFactor * 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Theme.of(context).colorScheme.background,
-                    child: BlocBuilder<ProfileBloc,ProfileState>(
-                      builder: (context, state) {
-                        return ListView.builder(
-                          itemCount: state.profileData.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              color: Theme.of(context).colorScheme.background,
-                              elevation: 0,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: width * 0.03),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        CircleAvatar(
-                                          radius: height * 0.03,
-                                          backgroundImage: NetworkImage(state.profileData[index].uploaderProfilePictureImageUrl),
-                                        ),
-                                        SizedBox(width: width * 0.05),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(state.profileData[index].uploaderName,
-                                                style: GoogleFonts.aBeeZee(
-                                                  fontSize: screenFactor * 30,
-                                                  fontWeight: FontWeight.bold
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(state.profileData[index].dateTime,
-                                                    style: TextStyle(
-                                                      fontSize: screenFactor * 30,
-                                                      fontWeight: FontWeight.normal
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: width * 0.03),
-                                                  Icon(CupertinoIcons.globe,size: screenFactor * 40,),
-                                                ],
-                                              )
-                                            ],
-                                          )
-                                        ),
-                                      ],
-                                    ),
-                                    (state.profileData[index].caption.isNotEmpty) 
-                                    ? ExpandableText(
-                                      state.profileData[index].caption,
-                                      maxLines: 3,
-                                      expandText: "Read more",
-                                      collapseText: "Read less",
-                                      style: TextStyle(
-                                        fontSize: screenFactor * 30,
-                                      ),
-                                    ) : const SizedBox(),
-                                    (state.profileData[index].imageUrl.isNotEmpty) 
-                                    ? Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        SizedBox(height: height * 0.02),
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(screenFactor * 30),
-                                          child: Image.network(state.profileData[index].imageUrl)
-                                        )
-                                      ],
-                                    ): const SizedBox(),
-                                    SizedBox(height: height * 0.02),
-                                    Icon(Icons.comment,size: screenFactor * 40),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+              child: Column(
+                children: [
+                  Text(state.userData.first.fullName,
+                    style: TextStyle(
+                      fontSize: screenFactor * 35,
+                      fontWeight: FontWeight.bold,
                     ),
-                  )
-                ),
-              ],
+                  ),
+                  Text(state.userData.first.bio,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: screenFactor * 30,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: Theme.of(context).colorScheme.background,
+                      child: BlocBuilder<ProfileBloc,ProfileState>(
+                        builder: (context, state) {
+                          return ListView.builder(
+                            itemCount: state.profileData.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                color: Theme.of(context).colorScheme.background,
+                                elevation: 0,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          CircleAvatar(
+                                            radius: height * 0.03,
+                                            backgroundImage: NetworkImage(state.profileData[index].uploaderProfilePictureImageUrl),
+                                          ),
+                                          SizedBox(width: width * 0.05),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(state.profileData[index].uploaderName,
+                                                  style: GoogleFonts.aBeeZee(
+                                                    fontSize: screenFactor * 30,
+                                                    fontWeight: FontWeight.bold
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text(state.profileData[index].dateTime,
+                                                      style: TextStyle(
+                                                        fontSize: screenFactor * 30,
+                                                        fontWeight: FontWeight.normal
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: width * 0.03),
+                                                    Icon(CupertinoIcons.globe,size: screenFactor * 40,),
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          ),
+                                        ],
+                                      ),
+                                      (state.profileData[index].caption.isNotEmpty) 
+                                      ? ExpandableText(
+                                        state.profileData[index].caption,
+                                        maxLines: 3,
+                                        expandText: "Read more",
+                                        collapseText: "Read less",
+                                        style: TextStyle(
+                                          fontSize: screenFactor * 30,
+                                        ),
+                                      ) : const SizedBox(),
+                                      (state.profileData[index].imageUrl.isNotEmpty) 
+                                      ? Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(height: height * 0.02),
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(screenFactor * 30),
+                                            child: Image.network(state.profileData[index].imageUrl)
+                                          )
+                                        ],
+                                      ): const SizedBox(),
+                                      SizedBox(height: height * 0.02),
+                                      Icon(Icons.comment,size: screenFactor * 40),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    )
+                  ),
+                ],
+              ),
             )
           ),
         ],

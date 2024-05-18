@@ -17,13 +17,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
+      body: const Column(
         children: [
-           const WemetAppBar(),
-           const Followers(),
-           const PostCategory(),
-           Divider(color: Colors.grey.shade500),
-           const Expanded(child: Posts()),
+          WemetAppBar(),
+          Followers(),
+          PostCategory(),
+          Expanded(child: Posts()),
         ],
       ),
     );

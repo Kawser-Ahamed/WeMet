@@ -31,52 +31,54 @@ class _PostCategoryState extends State<PostCategory> {
     double height = Screen.screenHeight(context);
     double width = Screen.screenWidth(context);
     double screenFactor = (width/Screen.designWidth);
-    return Card(
-      elevation: 0,
-      color: Theme.of(context).colorScheme.background,
-      child: BlocBuilder<PostCategoryBloc,PostCategoryState>(
-        builder: (context, state) {
-          if(state.uiStatus == UiStatus.loading){
-            return const CategoryLoading();
-          }
-          else if(state.uiStatus == UiStatus.error){
-            return Text(state.errorMessage);
-          }
-          else{
-            return Container(
-              width: width * 1,
+    return BlocBuilder<PostCategoryBloc,PostCategoryState>(
+      builder: (context, state) {
+        if(state.uiStatus == UiStatus.loading){
+          return const CategoryLoading();
+        }
+        else if(state.uiStatus == UiStatus.error){
+          return Text(state.errorMessage);
+        }
+        else{
+          return Container(
+            width: width * 1,
+            padding: EdgeInsets.only(bottom: height * 0.005),
+            decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.background,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(
-                    state.postCategoryData.length, (index) => InkWell(
-                      onTap: (){
-                        context.read<PostsBloc>().add(AllPostsEvent(url: '${Serverurls.postUrl}/${state.postCategoryData[index].name.toLowerCase()}'));
-                        context.read<PostCategoryBloc>().add(SelectedCategoryevent(index: index));
-                      },
-                      child: Card(
-                        elevation: 0,
-                        color: (state.selectedIndex == index) ? Colors.red :Theme.of(context).colorScheme.onPrimary,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: height * 0.01,horizontal: width * 0.05),
-                          child: Text(state.postCategoryData[index].name,
-                            style: GoogleFonts.aBeeZee(
-                              fontSize: screenFactor * 30,
-                              color: (state.selectedIndex == index) ? Colors.white : null,
-                            ),
-                          )
-                        ),
+              border: Border(
+                bottom: BorderSide(color: Colors.grey.shade500),
+              )
+            ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(
+                  state.postCategoryData.length, (index) => InkWell(
+                    onTap: (){
+                      context.read<PostsBloc>().add(AllPostsEvent(url: '${Serverurls.postUrl}/${state.postCategoryData[index].name.toLowerCase()}'));
+                      context.read<PostCategoryBloc>().add(SelectedCategoryevent(index: index));
+                    },
+                    child: Card(
+                      elevation: 0,
+                      color: (state.selectedIndex == index) ? Colors.red :Theme.of(context).colorScheme.onPrimary,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: height * 0.01,horizontal: width * 0.05),
+                        child: Text(state.postCategoryData[index].name,
+                          style: GoogleFonts.aBeeZee(
+                            fontSize: screenFactor * 30,
+                            color: (state.selectedIndex == index) ? Colors.white : null,
+                          ),
+                        )
                       ),
-                    )
-                  ),
+                    ),
+                  )
                 ),
               ),
-            );
-          }
-        },
-      ),
+            ),
+          );
+        }
+      },
     );
   }
 }

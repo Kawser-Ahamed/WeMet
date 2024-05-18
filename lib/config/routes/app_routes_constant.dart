@@ -3,4 +3,5 @@ class AppRoutesConstant{
   static String signIn = 'signIn';
   static String signUp = 'signUp';
   static String mainPage = 'mainpage';
+  static String commentPage = 'commentPage';
 }

@@ -7,6 +7,7 @@ import 'package:wemet/config/theme/bloc/theme_bloc.dart';
 import 'package:wemet/config/theme/theme.dart';
 import 'package:wemet/core/dependency/init_dependency.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:wemet/features/comment/presentation/bloc/comment_bloc.dart';
 import 'package:wemet/features/home/presentation/bloc/post_category/post_category_bloc.dart';
 import 'package:wemet/features/home/presentation/bloc/posts/posts_bloc.dart';
 import 'package:wemet/features/profile/presentation/bloc/profile_bloc.dart';
@@ -48,6 +49,7 @@ class WeMet extends StatelessWidget {
         BlocProvider(
           create: (context) => serviceLocator<ProfileBloc>(),
         ),
+        BlocProvider(create: (context) => serviceLocator<CommentBloc>()),
       ],
       child: BlocBuilder<ThemeBloc,ThemeMode>(
         builder: (context, themeState) {

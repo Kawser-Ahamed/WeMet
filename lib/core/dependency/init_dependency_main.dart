@@ -8,6 +8,7 @@ Future<void> initDependency() async{
   _uploadPost();
   _allPosts();
   _profileData();
+  _commentDependency();
 }
 
 void _initAuth(){
@@ -77,5 +78,22 @@ void _uploadPost(){
       () => ProfileUsecase(serviceLocator())
     )..registerFactory<ProfileBloc>(
       () => ProfileBloc(profileUsecase: serviceLocator())
+    );
+  }
+
+  void _commentDependency(){
+    serviceLocator..registerFactory<CommentDataSource>(
+      () => CommentDatasourceImplementation(),
+    )..registerFactory<CommentRepository>(
+      () => CommentRepositoryImplementation(serviceLocator()),
+    )..registerFactory<FetchCommentUsecase>(
+      () => FetchCommentUsecase(serviceLocator()),
+    )..registerFactory<UploadCommentUsecase>(
+      () => UploadCommentUsecase(serviceLocator()),
+    )..registerFactory<CommentBloc>(
+      () => CommentBloc(
+        fetchCommentUsecase: serviceLocator(), 
+        uploadCommentUsecase: serviceLocator(),
+      ),
     );
   }
