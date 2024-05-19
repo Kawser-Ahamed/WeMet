@@ -11,6 +11,7 @@ abstract interface class AuthDatasource{
   Future<List<UserModel>> signInWithEmailAndPassword(String email,String password);
   Future<String> uploadProfilePicture(File profilePictureFromDevice);
   Future<String> uploadCoverPhoto(File coverPhotoFromDevice);
+  Future<List<UserModel>> getUserData(String email);
 }
 
 class AuthDatasourceImplementation implements AuthDatasource{
@@ -107,6 +108,21 @@ class AuthDatasourceImplementation implements AuthDatasource{
     }
     catch(error){
       throw error.toString();
+    }
+  }
+  
+  @override
+  Future<List<UserModel>> getUserData(String email) async{
+    try{
+      List<UserModel> userData = [];
+      QuerySnapshot<Map<String,dynamic>> querySnapshot = await FirebaseFirestore.instance.collection(email).get();
+      for(var values in querySnapshot.docs){
+        userData.add(UserModel.fromJson(values.data()));
+      }
+      return userData;
+    }
+    catch(error){
+      throw Exception(error);
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:wemet/features/auth/data/repositories/auth_repository_implementa
 import 'package:wemet/features/auth/domain/repositories/auth_repository.dart';
 import 'package:wemet/features/auth/domain/usecase/signin_usecase.dart';
 import 'package:wemet/features/auth/domain/usecase/signup_usecase.dart';
+import 'package:wemet/features/auth/domain/usecase/user_usecase.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wemet/features/comment/data/datasource/comment_datasource.dart';
 import 'package:wemet/features/comment/data/repositories/comment_repository_implementation.dart';
@@ -32,5 +33,11 @@ import 'package:wemet/features/upload/domain/repositories/upload_post_repository
 import 'package:wemet/features/upload/domain/usecase/uplaod_post_without_image_usecase.dart';
 import 'package:wemet/features/upload/domain/usecase/upload_post_with_image_usecase.dart';
 import 'package:wemet/features/upload/presentation/bloc/upload_post_bloc.dart';
+import 'package:wemet/features/user_profile/data/datasource/user_profile_datasource.dart';
+import 'package:wemet/features/user_profile/data/repositories/user_profile_repository_implementation.dart';
+import 'package:wemet/features/user_profile/domain/repositories/user_profile_repository.dart';
+import 'package:wemet/features/user_profile/domain/usecase/user_profile_data_usecase.dart';
+import 'package:wemet/features/user_profile/domain/usecase/user_profile_post_usecase.dart';
+import 'package:wemet/features/user_profile/presentation/bloc/user_profile_bloc.dart';
 
 part 'init_dependency_main.dart';

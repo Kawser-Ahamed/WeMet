@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wemet/core/responsive/screen.dart';
+import 'package:wemet/core/reusable/main_loading.dart';
 import 'package:wemet/core/status/ui_status.dart';
 import 'package:wemet/core/urls/server_urls.dart';
 import 'package:wemet/features/comment/presentation/widgets/comment_design.dart';
@@ -11,6 +12,8 @@ import 'package:wemet/features/home/presentation/bloc/posts/posts_bloc.dart';
 import 'package:wemet/features/home/presentation/bloc/posts/posts_event.dart';
 import 'package:wemet/features/home/presentation/bloc/posts/posts_state.dart';
 import 'package:wemet/features/home/presentation/widget/shimmer.dart';
+import 'package:wemet/features/user_profile/presentation/bloc/user_profile_bloc.dart';
+import 'package:wemet/features/user_profile/presentation/bloc/user_profile_event.dart';
 
 class Posts extends StatefulWidget {
   const Posts({super.key});
@@ -78,7 +81,8 @@ class _PostsState extends State<Posts> {
                                 children: [
                                   InkWell(
                                     onTap: (){
-                                      
+                                      context.read<UserProfileBloc>().add(UserProfileDataEvent(state.postData[index].email,context));
+                                      mainLoading(context);
                                     },
                                     child: Text(state.postData[index].uploaderName,
                                       maxLines: 1,
@@ -127,7 +131,7 @@ class _PostsState extends State<Posts> {
                           ],
                         ): const SizedBox(),
                         SizedBox(height: height * 0.02),
-                        CommentDesign(index: index),
+                        CommentDesign(index: index,postList: state.postData),
                         SizedBox(height: height * 0.02),
                       ],
                     ),

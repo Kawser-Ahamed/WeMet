@@ -13,4 +13,17 @@ class UserProfileDataModel extends UserProfileDataEntities{
     required super.following
   });
   
+  factory UserProfileDataModel.fromJson(Map<String,dynamic> json){
+    return UserProfileDataModel(
+      id: json['id'],
+      email: json['email'],
+      fullName: json['fullName'],
+      bio: json['bio'],
+      profileImageUrl: json['profileImageUrl'],
+      coverPhotoUrl: json['coverPhotoUrl'],
+      followers: json['followers'],
+      following: json['following'],
+    );
+  }
+  
 }

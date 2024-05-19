@@ -9,6 +9,7 @@ Future<void> initDependency() async{
   _allPosts();
   _profileData();
   _commentDependency();
+  _userProfileDependency();
 }
 
 void _initAuth(){
@@ -20,10 +21,13 @@ void _initAuth(){
     () => SignInUseCase(serviceLocator()),
   )..registerFactory<SignUpUseCase>(
     () => SignUpUseCase(serviceLocator()),
+  )..registerFactory<UserUsecase>(
+    () => UserUsecase(serviceLocator()),
   )..registerFactory<AuthBloc>(
     () => AuthBloc(
       signupUseCase: serviceLocator(), 
       singInUseCase: serviceLocator(),
+      userUsecase: serviceLocator(),
     ),
   );
 }
@@ -95,5 +99,22 @@ void _uploadPost(){
         fetchCommentUsecase: serviceLocator(), 
         uploadCommentUsecase: serviceLocator(),
       ),
+    );
+  }
+
+  void _userProfileDependency(){
+    serviceLocator..registerFactory<UserProfileDatasource>(
+      () => UserProfileDatasourceImplementation()
+    )..registerFactory<UserProfileRepository>(
+      () => UserProfileRepositoryImplementation(serviceLocator())
+    )..registerFactory<UserProfileDataUsecase>(
+      () => UserProfileDataUsecase(serviceLocator())
+    )..registerFactory<UserProfilePostUsecase>(
+      () => UserProfilePostUsecase(serviceLocator())
+    )..registerFactory<UserProfileBloc>(
+      () => UserProfileBloc(
+        userProfileDataUsecase: serviceLocator(),
+        userProfilePostUsecase: serviceLocator(),
+      )
     );
   }

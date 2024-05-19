@@ -23,4 +23,6 @@ abstract interface class AuthRepository{
     required String email,
     required String password,
   });
+
+  Future<Either<Failure,List<UserEntities>>> getUserData(String email);
 }

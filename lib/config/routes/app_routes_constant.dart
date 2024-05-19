@@ -4,4 +4,5 @@ class AppRoutesConstant{
   static String signUp = 'signUp';
   static String mainPage = 'mainpage';
   static String commentPage = 'commentPage';
+  static String userprofile = 'userProfile';
 }

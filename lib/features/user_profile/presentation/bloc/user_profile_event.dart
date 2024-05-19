@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 
 class UserProfileEvent extends Equatable {
   const UserProfileEvent();
@@ -12,15 +11,16 @@ class UserProfileEvent extends Equatable {
 class UserProfileDataEvent extends UserProfileEvent{
 
   final String email;
-  final Completer<void> completer;
-  UserProfileDataEvent(this.email) : completer = Completer<void>();
+  final BuildContext context;
+  const UserProfileDataEvent(this.email,this.context);
 
 }
 
 class UserprofilePostEvent extends UserProfileEvent{
   
   final String email;
-  const UserprofilePostEvent(this.email);
+  final BuildContext context;
+  const UserprofilePostEvent(this.email,this.context);
 
 }
 

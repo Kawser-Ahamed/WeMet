@@ -13,7 +13,7 @@ class UserProfileRepositoryImplementation implements UserProfileRepository{
   @override
   Future<Either<Failure, List<UserProfileDataModel>>> getUserProfileData(String email) async{
     try{
-      final response = await userProfileDatasource.getUserProfileData();
+      final response = await userProfileDatasource.getUserProfileData(email);
       return right(response);
     }
     catch(error){
@@ -24,7 +24,7 @@ class UserProfileRepositoryImplementation implements UserProfileRepository{
   @override
   Future<Either<Failure, List<UserProfilePostModel>>> getUserProfilePosts(String email) async{
     try{
-      final response = await userProfileDatasource.getUserProfilePost();
+      final response = await userProfileDatasource.getUserProfilePost(email);
       return right(response);
     }
     catch(error){

@@ -6,11 +6,11 @@ import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wemet/features/comment/presentation/bloc/comment_bloc.dart';
 import 'package:wemet/features/comment/presentation/bloc/comment_event.dart';
 import 'package:wemet/features/comment/presentation/widgets/comment.dart';
-import 'package:wemet/features/home/presentation/bloc/posts/posts_bloc.dart';
 
 class CommentDesign extends StatefulWidget {
   final int index;
-  const CommentDesign({super.key, required this.index});
+  final List postList;
+  const CommentDesign({super.key, required this.index, required this.postList});
 
   @override
   State<CommentDesign> createState() => _CommentDesignState();
@@ -36,8 +36,8 @@ class _CommentDesignState extends State<CommentDesign> {
       children: [
         InkWell(
           onTap: (){
-            context.read<CommentBloc>().add(FetchCommentEvent(id: BlocProvider.of<PostsBloc>(context).state.postData[widget.index].id));
-            comments(context,BlocProvider.of<PostsBloc>(context).state.postData[widget.index].uploaderName);
+            context.read<CommentBloc>().add(FetchCommentEvent(id:widget.postList[widget.index].id));
+            comments(context,widget.postList[widget.index].uploaderName);
           },
           child: Icon(Icons.comment,size: screenFactor * 50),
         ),
@@ -69,12 +69,12 @@ class _CommentDesignState extends State<CommentDesign> {
           child: InkWell(
             onTap: (){
               if(commentController.text.isNotEmpty){
-                var data =BlocProvider.of<AuthBloc>(context).state.userData[widget.index];
+                var data =BlocProvider.of<AuthBloc>(context).state.userData.first;
                 DateFormat dateFormat =  DateFormat("dd-MM-yyyy HH:mm");
                 String currentTime = dateFormat.format(DateTime.now());
                 context.read<CommentBloc>().add(
                   UploadCommentEvent(
-                    id: BlocProvider.of<PostsBloc>(context).state.postData[widget.index].id, 
+                    id: widget.postList[widget.index].id, 
                     comment: commentController.text, 
                     dateTime: currentTime, 
                     commenterName: data.fullName, 

@@ -3,11 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wemet/config/routes/app_routes_constant.dart';
 import 'package:wemet/core/status/ui_status.dart';
 import 'package:wemet/features/auth/domain/entities/user_entities.dart';
 import 'package:wemet/features/auth/domain/usecase/signin_usecase.dart';
 import 'package:wemet/features/auth/domain/usecase/signup_usecase.dart';
+import 'package:wemet/features/auth/domain/usecase/user_usecase.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_event.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_state.dart';
 import 'package:wemet/features/profile/presentation/bloc/profile_bloc.dart';
@@ -16,12 +18,18 @@ import 'package:wemet/features/profile/presentation/bloc/profile_event.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignUpUseCase _signupUseCase;
   final SignInUseCase _signinUseCase;
+  final UserUsecase _userUseCase;
   AuthBloc({
     required SignUpUseCase signupUseCase,
     required SignInUseCase singInUseCase,
-  }) : _signupUseCase = signupUseCase,_signinUseCase=singInUseCase, super(const AuthState()) {
+    required UserUsecase userUsecase,
+  }) : _signupUseCase = signupUseCase,
+    _signinUseCase = singInUseCase, 
+    _userUseCase = userUsecase,
+    super(const AuthState()) {
     on<SignUpEvent>(_signUpWithemailAndPassword);
     on<SignInEvent>(_signInWithEmailAndPassWord);
+    on<UserDataEvent>(_getUserData);
   }
 
   Future<void>_signUpWithemailAndPassword(SignUpEvent event, Emitter<AuthState> emit)async{
@@ -56,6 +64,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _signInWithEmailAndPassWord(SignInEvent event, Emitter<AuthState> emit) async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final response = await _signinUseCase(SignInParams(email: event.email, password: event.password));
     response.fold(
       (l){
@@ -64,11 +73,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }, 
       (r){
         emit(state.copyWith(message: 'Successfull',userData: r,uiStatus: UiStatus.success));
-        ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(duration: const Duration(seconds: 1),content: Text(BlocProvider.of<AuthBloc>(event.context).state.userData.first.fullName)));
         event.context.read<ProfileBloc>().add(ProfileDataEvent(email: state.userData.first.email));
+        ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(duration: const Duration(seconds: 1),content: Text(BlocProvider.of<AuthBloc>(event.context).state.userData.first.fullName)));
+        sharedPreferences.setString('email', event.email);
         GoRouter.of(event.context).pushNamed(AppRoutesConstant.mainPage);
       }
     );
     Navigator.pop(event.context);
+  }
+
+  Future<void> _getUserData(UserDataEvent event, Emitter<AuthState> emit) async{
+    final response = await _userUseCase(UserEmailParams(email: event.email));
+    response.fold(
+      (l) => emit(state.copyWith(uiStatus: UiStatus.error,message: l.message)), 
+      (r){
+        emit(state.copyWith(userData: r,uiStatus: UiStatus.success));
+        event.context.read<ProfileBloc>().add(ProfileDataEvent(email: state.userData.first.email));
+        GoRouter.of(event.context).pushNamed(AppRoutesConstant.mainPage);
+      },
+    );
   }
 }

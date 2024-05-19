@@ -12,4 +12,16 @@ class UserProfilePostModel extends UserProfilePostEntities{
     required super.uploaderProfilePictureImageUrl
   });
 
+  factory UserProfilePostModel.fromJson(Map<String,dynamic> json){
+    return UserProfilePostModel(
+      id: json['id'],
+      caption: json['caption'],
+      imageUrl: json['imageUrl'],
+      dateTime: json['dateTime'],
+      uploaderName: json['uploaderName'],
+      email: json['email'],
+      uploaderProfilePictureImageUrl: json['uploaderProfilePictureImageUrl'],
+    );
+  }
+
 }

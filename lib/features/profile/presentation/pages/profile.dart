@@ -33,8 +33,9 @@ class _ProfileState extends State<Profile> {
           Positioned(
             top: 0,
             left: 0,
+            bottom: height * 0.5,
             right: 0,
-            child: Image.network(state.userData.first.coverPhotoUrl,fit: BoxFit.fitWidth),
+            child: Image.network(state.userData.first.coverPhotoUrl,fit: BoxFit.cover),
           ),
           Positioned(
             top: height * 0.3,
@@ -42,7 +43,7 @@ class _ProfileState extends State<Profile> {
             left: 0,
             right: 0,
             child: Container(
-              color: Colors.transparent,
+              color: Theme.of(context).colorScheme.background,
             ),
           ),
           Positioned(
