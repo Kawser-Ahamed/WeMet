@@ -46,42 +46,46 @@ app.get("/post_category", async (req,res)=>{
 
 const uploadPostCollection = client.db(databaseName).collection("all");
 app.post("/upload_post/:email/:category", async (req,res)=>{
-    const uploadPostInProfile = client.db(databaseName).collection(`${req.params.email}-post`);
-    const categoryPostCollection = client.db(databaseName).collection(req.params.category);
     uploadPostCollection.insertOne(req.body)
-    .then((value)=>{
-        uploadPostInProfile.insertOne(req.body)
-        .then((value)=>{
-            if(req.params.category != 'none'){
-                categoryPostCollection.insertOne(req.body)
-                .then((value)=>res.send('Your post is successfully uploaded'))
-                .catch((error)=>res.send(error));
-            }
-            else{
-                res.send('Your post is successfully uploaded');
-            }
-        })
-        .catch((error)=> res.send(error));
-    })
+    .then((value)=> res.send('Your post is successfully uploaded'))
     .catch((error)=> res.send(error));
 });
 
 app.get('/get_all_post/:category', async (req,res)=>{
-    const allPostsCollection = client.db(databaseName).collection(req.params.category);
     try{
-       var values = allPostsCollection.find();
-       var json = await values.toArray();
-       res.send(json);
+        const allPostsCollection = client.db(databaseName).collection("all");
+        if(req.params.category == "all"){
+            var values = allPostsCollection.find();
+            var json = await values.toArray();
+            res.send(json);
+        }
+        else{
+            var values = allPostsCollection.find({postCategory : req.params.category});
+            var json = await values.toArray();
+            res.send(json);
+        }
     }
     catch(error){
         res.send(error);
     }
 });
 
-app.get('/profile_data/:email', async(req,res)=>{
+app.get('/get_user_data/:email',async (req,res)=>{
+    const profileDataCollection = client.db(databaseName).collection('users');
     try{
-        const profileDataCollection = client.db(databaseName).collection(`${req.params.email}-post`);
-        var values = profileDataCollection.find();
+        var values = profileDataCollection.find({email : req.params.email});
+        var json = await values.toArray();
+        res.send(json);
+    }
+    catch(error){
+        res.send(error);
+    }
+})
+
+app.get('/get_profile_data/:email', async(req,res)=>{
+    try{
+        const profileDataCollection = client.db(databaseName).collection('all');
+        var values = profileDataCollection.find({email : req.params.email});
         var json = await values.toArray()
         res.send(json);
     }
@@ -89,6 +93,7 @@ app.get('/profile_data/:email', async(req,res)=>{
         res.send(error);
     }
 });
+
 
 app.post('/upload_comment/:id', (req,res)=>{
     const uploadCommentCollection = client.db(databaseName).collection(`post-no-${req.params.id}-comments`);
@@ -107,6 +112,13 @@ app.get('/fetch_comment/:id', async (req,res)=>{
     catch(error){
         res.send(error);
     }
+});
+
+const userCollection = client.db(databaseName).collection("users");
+app.post('/add_user', async(req,res)=>{
+    userCollection.insertOne(req.body)
+    .then((value)=>res.send(value))
+    .catch((error)=> res.send(error));
 });
 
 app.listen(port,()=>{

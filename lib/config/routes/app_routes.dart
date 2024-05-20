@@ -2,6 +2,8 @@ import 'package:go_router/go_router.dart';
 import 'package:wemet/config/routes/app_routes_constant.dart';
 import 'package:wemet/features/auth/presentation/pages/sign_in.dart';
 import 'package:wemet/features/auth/presentation/pages/sign_up.dart';
+import 'package:wemet/features/edit_profile/presentation/pages/edit_picture.dart';
+import 'package:wemet/features/edit_profile/presentation/pages/edit_profile.dart';
 import 'package:wemet/features/user_profile/presentation/pages/user_profile.dart';
 import 'package:wemet/mainpage.dart';
 import 'package:wemet/splash_screen.dart';
@@ -41,6 +43,25 @@ class AppRoutes{
         path: '/userProfile',
         name: AppRoutesConstant.userprofile,
         builder: (context, state) => const UserProfile(),
+      ),
+      GoRoute(
+        path: '/editProfile/:fullName/:bio/:email',
+        name: AppRoutesConstant.editProfile,
+        builder: (context, state) => 
+        Editprofile(
+          fullName: state.pathParameters['fullName']!,
+          bio: state.pathParameters['bio']!,
+          email: state.pathParameters['email']!,
+        ),
+      ),
+      GoRoute(
+        path: '/editPicture/:pictureType/:imageUrl',
+        name: AppRoutesConstant.editPicture,
+        builder: (context, state) => 
+        EditPicture(
+          pictureType: state.pathParameters['pictureType']!, 
+          imageUrl: state.pathParameters['imageUrl']!,
+        ),
       ),
     ],
   );

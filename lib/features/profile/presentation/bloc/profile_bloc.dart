@@ -20,4 +20,5 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       (r) => emit(state.copyWith(uiStatus: UiStatus.success,profileData: r)),
     );
   }
+
 }

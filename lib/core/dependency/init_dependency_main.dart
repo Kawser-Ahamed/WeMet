@@ -10,6 +10,7 @@ Future<void> initDependency() async{
   _profileData();
   _commentDependency();
   _userProfileDependency();
+  _editProfileDependency();
 }
 
 void _initAuth(){
@@ -61,60 +62,80 @@ void _uploadPost(){
   );
 }
 
-  void _allPosts(){
-    serviceLocator..registerFactory<PostsDatasource>(
-      () => PostsDatasourceImplementation(),
-    )..registerFactory<PostsRepository>(
-      () => PostsRepositoryImplementation(serviceLocator()),
-    )..registerFactory<PostsUsecase>(
-      () => PostsUsecase(serviceLocator()),
-    )..registerFactory<PostsBloc>(
-      () => PostsBloc(postsUsecase: serviceLocator()),
-    );
-  }
+void _allPosts(){
+  serviceLocator..registerFactory<PostsDatasource>(
+    () => PostsDatasourceImplementation(),
+  )..registerFactory<PostsRepository>(
+    () => PostsRepositoryImplementation(serviceLocator()),
+  )..registerFactory<PostsUsecase>(
+    () => PostsUsecase(serviceLocator()),
+  )..registerFactory<PostsBloc>(
+    () => PostsBloc(postsUsecase: serviceLocator()),
+  );
+}
 
-  void _profileData(){
-    serviceLocator..registerFactory<ProfileDatasource>(
-      () => ProfileDatasourceImplementation()
-    )..registerFactory<ProfileRepository>(
-      () => ProfileRepositoryImplementation(serviceLocator())
-    )..registerFactory<ProfileUsecase>(
-      () => ProfileUsecase(serviceLocator())
-    )..registerFactory<ProfileBloc>(
-      () => ProfileBloc(profileUsecase: serviceLocator())
-    );
-  }
+void _profileData(){
+  serviceLocator..registerFactory<ProfileDatasource>(
+    () => ProfileDatasourceImplementation()
+  )..registerFactory<ProfileRepository>(
+    () => ProfileRepositoryImplementation(serviceLocator())
+  )..registerFactory<ProfileUsecase>(
+    () => ProfileUsecase(serviceLocator())
+  )..registerFactory<ProfileBloc>(
+    () => ProfileBloc(profileUsecase: serviceLocator())
+  );
+}
 
-  void _commentDependency(){
-    serviceLocator..registerFactory<CommentDataSource>(
-      () => CommentDatasourceImplementation(),
-    )..registerFactory<CommentRepository>(
-      () => CommentRepositoryImplementation(serviceLocator()),
-    )..registerFactory<FetchCommentUsecase>(
-      () => FetchCommentUsecase(serviceLocator()),
-    )..registerFactory<UploadCommentUsecase>(
-      () => UploadCommentUsecase(serviceLocator()),
-    )..registerFactory<CommentBloc>(
-      () => CommentBloc(
-        fetchCommentUsecase: serviceLocator(), 
-        uploadCommentUsecase: serviceLocator(),
-      ),
-    );
-  }
+void _commentDependency(){
+  serviceLocator..registerFactory<CommentDataSource>(
+    () => CommentDatasourceImplementation(),
+  )..registerFactory<CommentRepository>(
+    () => CommentRepositoryImplementation(serviceLocator()),
+  )..registerFactory<FetchCommentUsecase>(
+    () => FetchCommentUsecase(serviceLocator()),
+  )..registerFactory<UploadCommentUsecase>(
+    () => UploadCommentUsecase(serviceLocator()),
+  )..registerFactory<CommentBloc>(
+    () => CommentBloc(
+      fetchCommentUsecase: serviceLocator(), 
+      uploadCommentUsecase: serviceLocator(),
+    ),
+  );
+}
 
-  void _userProfileDependency(){
-    serviceLocator..registerFactory<UserProfileDatasource>(
-      () => UserProfileDatasourceImplementation()
-    )..registerFactory<UserProfileRepository>(
-      () => UserProfileRepositoryImplementation(serviceLocator())
-    )..registerFactory<UserProfileDataUsecase>(
-      () => UserProfileDataUsecase(serviceLocator())
-    )..registerFactory<UserProfilePostUsecase>(
-      () => UserProfilePostUsecase(serviceLocator())
-    )..registerFactory<UserProfileBloc>(
-      () => UserProfileBloc(
-        userProfileDataUsecase: serviceLocator(),
-        userProfilePostUsecase: serviceLocator(),
-      )
-    );
-  }
+void _userProfileDependency(){
+  serviceLocator..registerFactory<UserProfileDatasource>(
+    () => UserProfileDatasourceImplementation()
+  )..registerFactory<UserProfileRepository>(
+    () => UserProfileRepositoryImplementation(serviceLocator())
+  )..registerFactory<UserProfileDataUsecase>(
+    () => UserProfileDataUsecase(serviceLocator())
+  )..registerFactory<UserProfilePostUsecase>(
+    () => UserProfilePostUsecase(serviceLocator())
+  )..registerFactory<UserProfileBloc>(
+    () => UserProfileBloc(
+      userProfileDataUsecase: serviceLocator(),
+      userProfilePostUsecase: serviceLocator(),
+    )
+  );
+}
+
+void _editProfileDependency(){
+  serviceLocator..registerFactory<EditProfileDataSource>(
+    () => EditProfileDataSourceImplementation(),
+  )..registerFactory<EditProfileRepository>(
+    () => EditProfileRepositoryImplementation(serviceLocator()),
+  )..registerFactory<EditProfileUsecase>(
+    () => EditProfileUsecase(serviceLocator()),
+  )..registerFactory<EditprofilePictureUsecase>(
+    () => EditprofilePictureUsecase(serviceLocator()),
+  )..registerFactory<EditCoverPhotoUsecase>(
+    () => EditCoverPhotoUsecase(serviceLocator()),
+  )..registerFactory<EditProfileBloc>(
+    () => EditProfileBloc(
+      editProfileUsecase: serviceLocator(),
+      editprofilePictureUsecase: serviceLocator(),
+      editCoverPhotoUsecase: serviceLocator(),
+    ),
+  );
+}

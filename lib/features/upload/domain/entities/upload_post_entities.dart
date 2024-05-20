@@ -7,6 +7,7 @@ class UploadPostEntities{
   final String uploaderName;
   final String email;
   final String uploaderProfilePictureImageUrl;
+  final String postCategory;
   
   UploadPostEntities({
     required this.id,
@@ -16,6 +17,7 @@ class UploadPostEntities{
     required this.uploaderName,
     required this.email,
     required this.uploaderProfilePictureImageUrl,
+    required this.postCategory,
   });
 
 }

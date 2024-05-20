@@ -155,7 +155,7 @@ class _UploadPostState extends State<UploadPost> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+                          padding: EdgeInsets.symmetric(horizontal: width * 0.03,vertical: height * 0.01),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
                               isExpanded: true,

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:intl/intl.dart';
 import 'package:wemet/core/urls/server_urls.dart';
 import 'package:wemet/features/profile/data/model/profile_model.dart';
@@ -35,5 +34,4 @@ class ProfileDatasourceImplementation implements ProfileDatasource{
       throw Exception(error.toString());
     }
   }
-
 }

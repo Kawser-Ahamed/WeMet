@@ -1,8 +1,11 @@
 
-class ThemeEvent {
+class ThemeEvent {}
+
+class UserChangeThemeEvent extends ThemeEvent{
 
   final bool isDark;
-  ThemeEvent(this.isDark);
-  
+  UserChangeThemeEvent(this.isDark);
 }
+
+class PrimaryChangeThemeEvent extends ThemeEvent{}
 

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:wemet/core/urls/server_urls.dart';
 import 'package:wemet/features/user_profile/data/model/user_profile_data_model.dart';
@@ -17,13 +16,27 @@ class UserProfileDatasourceImplementation implements UserProfileDatasource{
 
   @override
   Future<List<UserProfileDataModel>> getUserProfileData(String email) async{
+    // try{
+    //   List<UserProfileDataModel> userProfileData = [];
+    //   QuerySnapshot<Map<String,dynamic>> querySnapshot = await FirebaseFirestore.instance.collection(email).get();
+    //   for(var values in querySnapshot.docs){
+    //     userProfileData.add(UserProfileDataModel.fromJson(values.data()));
+    //   }
+    //   return userProfileData;
+    // }
+    // catch(error){
+    //   throw Exception(error);
+    // }
     try{
-      List<UserProfileDataModel> userProfileData = [];
-      QuerySnapshot<Map<String,dynamic>> querySnapshot = await FirebaseFirestore.instance.collection(email).get();
-      for(var values in querySnapshot.docs){
-        userProfileData.add(UserProfileDataModel.fromJson(values.data()));
-      }
-      return userProfileData;
+      List<UserProfileDataModel> userData = [];
+      var response = await http.get(Uri.parse('${Serverurls.userData}/$email'));
+      if(response.statusCode == 200){
+        var data = jsonDecode(response.body.toString());
+        for(var values in data){
+          userData.add(UserProfileDataModel.fromJson(values));
+        }
+      } 
+      return userData;
     }
     catch(error){
       throw Exception(error);

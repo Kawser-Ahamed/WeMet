@@ -10,6 +10,7 @@ class UploadPostModel extends UploadPostEntities{
     required super.uploaderName, 
     required super.email,
     required super.uploaderProfilePictureImageUrl,
+    required super.postCategory,
   });
 
   Map<String,dynamic> toJson(){
@@ -21,6 +22,7 @@ class UploadPostModel extends UploadPostEntities{
       'uploaderName' : uploaderName,
       'email' : email,
       'uploaderProfilePictureImageUrl' : uploaderProfilePictureImageUrl,
+      'postCategory' : postCategory,
     };
   }
 
@@ -32,6 +34,7 @@ class UploadPostModel extends UploadPostEntities{
     String ? uploaderName,
     String ? email,
     String ? uploaderProfilePictureImageUrl,
+    String ? postCategory,
   }){
     return UploadPostModel(
       id: id ?? this.id, 
@@ -41,6 +44,7 @@ class UploadPostModel extends UploadPostEntities{
       uploaderName: uploaderName ?? this.uploaderName, 
       email: email ?? this.email,
       uploaderProfilePictureImageUrl: uploaderProfilePictureImageUrl ?? this.uploaderProfilePictureImageUrl,
+      postCategory: postCategory ?? this.postCategory,
     );
   }
 

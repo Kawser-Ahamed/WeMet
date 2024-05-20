@@ -10,6 +10,7 @@ import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wemet/features/comment/presentation/bloc/comment_bloc.dart';
 import 'package:wemet/features/home/presentation/bloc/post_category/post_category_bloc.dart';
 import 'package:wemet/features/home/presentation/bloc/posts/posts_bloc.dart';
+import 'package:wemet/features/edit_profile/presentation/bloc/edit_profile_bloc.dart';
 import 'package:wemet/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:wemet/features/upload/presentation/bloc/upload_post_bloc.dart';
 import 'package:wemet/features/user_profile/presentation/bloc/user_profile_bloc.dart';
@@ -32,14 +33,15 @@ class WeMet extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=> serviceLocator<AuthBloc>()),
         BlocProvider(create: (context)=> ThemeBloc()),
+        BlocProvider(create: (context)=> serviceLocator<AuthBloc>()),
         BlocProvider(create: (context) => serviceLocator<PostCategoryBloc>()),
         BlocProvider(create: (context) => serviceLocator<UploadPostBloc>()),
         BlocProvider(create: (context) => serviceLocator<PostsBloc>()),
         BlocProvider(create: (context) => serviceLocator<ProfileBloc>()),
         BlocProvider(create: (context) => serviceLocator<CommentBloc>()),
         BlocProvider(create: (context) => serviceLocator<UserProfileBloc>()),
+        BlocProvider(create: (context) => serviceLocator<EditProfileBloc>()),
       ],
       child: BlocBuilder<ThemeBloc,ThemeMode>(
         builder: (context, themeState) {

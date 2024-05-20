@@ -1,9 +1,13 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:wemet/core/urls/server_urls.dart';
 import 'package:wemet/features/auth/data/model/user_model.dart';
+import 'package:http/http.dart' as http;
 
 abstract interface class AuthDatasource{
 
@@ -21,9 +25,15 @@ class AuthDatasourceImplementation implements AuthDatasource{
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: userModel.email, 
         password: userModel.password
-      ).then((value){
-        FirebaseFirestore.instance.collection(userModel.email).doc('Profile').set(userModel.toJson());
-      });
+      );
+      String json = jsonEncode(userModel.toJson());
+      var response = await http.post(
+        Uri.parse(Serverurls.addUser),
+        headers: <String,String>{
+          'Content-Type' : 'application/json; charset=UTF-8',
+        },
+        body: json,
+      );
       return userModel;
     } on FirebaseAuthException catch(e){
       if(e.code == 'invalid-email'){
@@ -98,27 +108,55 @@ class AuthDatasourceImplementation implements AuthDatasource{
   }
 
   Future<List<UserModel>> getUser(String email) async{
+    // try{
+    //   List<UserModel> userData = [];
+    //   QuerySnapshot<Map<String,dynamic>> querySnapshot = await FirebaseFirestore.instance.collection(email).get();
+    //   for (var values in querySnapshot.docs) {
+    //     userData.add(UserModel.fromJson(values.data()));
+    //   }
+    //   return userData;
+    // }
+    // catch(error){
+    //   throw error.toString();
+    // }
     try{
       List<UserModel> userData = [];
-      QuerySnapshot<Map<String,dynamic>> querySnapshot = await FirebaseFirestore.instance.collection(email).get();
-      for (var values in querySnapshot.docs) {
-        userData.add(UserModel.fromJson(values.data()));
-      }
+      var response = await http.get(Uri.parse('${Serverurls.userData}/$email'));
+      if(response.statusCode == 200){
+        var data = jsonDecode(response.body.toString());
+        for(var values in data){
+          userData.add(UserModel.fromJson(values));
+        }
+      } 
       return userData;
     }
     catch(error){
-      throw error.toString();
+      throw Exception(error);
     }
   }
   
   @override
   Future<List<UserModel>> getUserData(String email) async{
+    // try{
+    //   List<UserModel> userData = [];
+    //   QuerySnapshot<Map<String,dynamic>> querySnapshot = await FirebaseFirestore.instance.collection(email).get();
+    //   for(var values in querySnapshot.docs){
+    //     userData.add(UserModel.fromJson(values.data()));
+    //   }
+    //   return userData;
+    // }
+    // catch(error){
+    //   throw Exception(error);
+    // }
     try{
       List<UserModel> userData = [];
-      QuerySnapshot<Map<String,dynamic>> querySnapshot = await FirebaseFirestore.instance.collection(email).get();
-      for(var values in querySnapshot.docs){
-        userData.add(UserModel.fromJson(values.data()));
-      }
+      var response = await http.get(Uri.parse('${Serverurls.userData}/$email'));
+      if(response.statusCode == 200){
+        var data = jsonDecode(response.body.toString());
+        for(var values in data){
+          userData.add(UserModel.fromJson(values));
+        }
+      } 
       return userData;
     }
     catch(error){

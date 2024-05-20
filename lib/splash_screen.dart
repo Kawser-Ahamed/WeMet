@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wemet/config/routes/app_routes_constant.dart';
+import 'package:wemet/config/theme/bloc/theme_bloc.dart';
+import 'package:wemet/config/theme/bloc/theme_event.dart';
 import 'package:wemet/core/Color/app_color.dart';
 import 'package:wemet/core/reusable/loading.dart';
 import 'package:wemet/core/urls/app_image_urls.dart';
@@ -29,6 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     }
     else{
+      context.read<ThemeBloc>().add(PrimaryChangeThemeEvent());
       context.read<AuthBloc>().add(UserDataEvent(email: email, context: context));
     }
   }

@@ -31,7 +31,8 @@ class UploadPostRepositoriesImplementation implements UploadPostRepository{
         dateTime: dateTime, 
         uploaderName: uploaderName, 
         email: email,
-        uploaderProfilePictureImageUrl: uploaderProfilePictureImageUrl
+        uploaderProfilePictureImageUrl: uploaderProfilePictureImageUrl,
+        postCategory: category,
       );
 
       imageUrlFromFirebase = await uploadPostDatasource.uploadAttachmentImage(imageUrl: imageUrl!);
@@ -65,7 +66,8 @@ class UploadPostRepositoriesImplementation implements UploadPostRepository{
         dateTime: dateTime, 
         uploaderName: uploaderName, 
         email: email,
-        uploaderProfilePictureImageUrl: uploaderProfilePictureImageUrl
+        uploaderProfilePictureImageUrl: uploaderProfilePictureImageUrl,
+        postCategory: category,
       );
       
       final response = await uploadPostDatasource.uploadPost(uploadPostModel,category);

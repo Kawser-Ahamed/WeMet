@@ -27,12 +27,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _signinUseCase = singInUseCase, 
     _userUseCase = userUsecase,
     super(const AuthState()) {
-    on<SignUpEvent>(_signUpWithemailAndPassword);
+    on<SignUpEvent>(_signUpWithEmailAndPassword);
     on<SignInEvent>(_signInWithEmailAndPassWord);
     on<UserDataEvent>(_getUserData);
   }
 
-  Future<void>_signUpWithemailAndPassword(SignUpEvent event, Emitter<AuthState> emit)async{
+  Future<void>_signUpWithEmailAndPassword(SignUpEvent event, Emitter<AuthState> emit)async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final res = await _signupUseCase(
       SignUpParams(
         email: event.email, 
@@ -47,7 +48,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         following: event.following,
       )
     );
-
     res.fold(
       (l){
         emit(state.copyWith(message: l.message.toString(),uiStatus: UiStatus.error));
@@ -57,6 +57,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         List<UserEntities> userData = [];
         userData.add(r);
         emit(state.copyWith(message: 'Sucess',userData: userData,uiStatus: UiStatus.success));
+        event.context.read<ProfileBloc>().add(ProfileDataEvent(email: state.userData.first.email));
+        sharedPreferences.setString('email', event.email);
         GoRouter.of(event.context).pushNamed(AppRoutesConstant.mainPage);
       }
     );

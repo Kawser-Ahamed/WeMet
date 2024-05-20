@@ -19,5 +19,4 @@ class ProfileRepositoryImplementation implements ProfileRepository{
       return left(Failure(error.toString()));
     }
   }
-
 }
