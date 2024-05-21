@@ -130,7 +130,15 @@ app.put('/update_profile_picture/:email', (req,res)=>{
             $set : {
                 uploaderProfilePictureImageUrl : req.body.profileImageUrl,
             }
-        }).then((value)=> res.send('Profile Picture updated successfully.'))
+        }).then((value)=>{
+            client.db(databaseName).collection('posts-comments').updateMany({email: req.params.email},{
+                $set : {
+                    commenterProfilePictureImageUrl : req.body.profileImageUrl,
+                }
+            })
+            .then((value) => res.send('Profile Picture updated successfully.'))
+            .catch((error)=> res.send(error));
+        })
         .catch((error)=>res.send(error));
     })
     .catch((error)=> res.send(error))
@@ -170,6 +178,39 @@ app.post('/add_user', async(req,res)=>{
     userCollection.insertOne(req.body)
     .then((value)=>res.send(value))
     .catch((error)=> res.send(error));
+});
+
+const randomUser = client.db(databaseName).collection('users');
+app.get('/get_random_user', async(req,res)=>{
+    try{
+        var values = randomUser.find();
+        var json = await values.toArray();
+        const randomValue = Math.floor(Math.random() * json.length);
+        var jsondata = [json[randomValue]];
+        res.send(jsondata);
+    }
+    catch(error){
+        res.send(error);
+    }
+});
+
+const searchCollection = client.db(databaseName).collection('users');
+app.get('/get_search_user/:searchvalue', async(req,res)=>{
+    try{
+        let filterdUser = [];
+        var values = searchCollection.find();
+        var json = await values.toArray();
+        for(let values in json){
+            let userName = json[values]['fullName'];
+            if(userName.toLowerCase().includes(req.params.searchvalue)){
+                filterdUser.push(json[values]);
+            }
+        }
+        res.send(filterdUser);
+    }
+    catch(error){
+        return res.send(error);
+    }
 });
 
 app.listen(port,()=>{

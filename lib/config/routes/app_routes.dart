@@ -4,6 +4,7 @@ import 'package:wemet/features/auth/presentation/pages/sign_in.dart';
 import 'package:wemet/features/auth/presentation/pages/sign_up.dart';
 import 'package:wemet/features/edit_profile/presentation/pages/edit_picture.dart';
 import 'package:wemet/features/edit_profile/presentation/pages/edit_profile.dart';
+import 'package:wemet/features/home/presentation/widget/post_view_page.dart';
 import 'package:wemet/features/user_profile/presentation/pages/user_profile.dart';
 import 'package:wemet/mainpage.dart';
 import 'package:wemet/splash_screen.dart';
@@ -61,6 +62,17 @@ class AppRoutes{
         EditPicture(
           pictureType: state.pathParameters['pictureType']!, 
           imageUrl: state.pathParameters['imageUrl']!,
+        ),
+      ),
+      GoRoute(
+        path: '/postViewPage/:imageUrl/:name/:profileImage/:dateTime/:caption',
+        name: AppRoutesConstant.postViewPage,
+        builder: (context, state) => PostViewPage(
+          imageUrl: state.pathParameters['imageUrl']!,
+          name: state.pathParameters['name']!,
+          profileImage: state.pathParameters['profileImage']!,
+          dateTime: state.pathParameters['dateTime']!,
+          caption: state.pathParameters['caption']!,
         ),
       ),
     ],

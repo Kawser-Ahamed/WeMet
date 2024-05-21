@@ -329,9 +329,22 @@ class _ProfileState extends State<Profile> {
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           SizedBox(height: height * 0.02),
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(screenFactor * 30),
-                                            child: Image.network(state.profileData[index].imageUrl)
+                                          InkWell(
+                                            onTap: (){
+                                               GoRouter.of(context).pushNamed(
+                                                AppRoutesConstant.postViewPage,pathParameters: {
+                                                  'imageUrl' : state.profileData[index].imageUrl,
+                                                  'name' : state.profileData[index].uploaderName,
+                                                  'profileImage' : state.profileData[index].uploaderProfilePictureImageUrl,
+                                                  'dateTime' : state.profileData[index].dateTime,
+                                                  'caption' : state.profileData[index].caption,
+                                                }
+                                              );
+                                            },
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(screenFactor * 30),
+                                              child: Image.network(state.profileData[index].imageUrl)
+                                            ),
                                           )
                                         ],
                                       ): const SizedBox(),

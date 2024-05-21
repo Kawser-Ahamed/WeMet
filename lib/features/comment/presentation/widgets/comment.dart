@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wemet/core/responsive/screen.dart';
+import 'package:wemet/core/reusable/main_loading.dart';
 import 'package:wemet/core/status/ui_status.dart';
 import 'package:wemet/features/comment/presentation/bloc/comment_bloc.dart';
 import 'package:wemet/features/comment/presentation/bloc/comment_state.dart';
 import 'package:wemet/features/comment/presentation/widgets/comment_loading.dart';
+import 'package:wemet/features/user_profile/presentation/bloc/user_profile_bloc.dart';
+import 'package:wemet/features/user_profile/presentation/bloc/user_profile_event.dart';
 
 Future<void> comments(BuildContext context,String uploaderName){
   double height = Screen.screenHeight(context);
@@ -115,10 +118,16 @@ Future<void> comments(BuildContext context,String uploaderName){
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(state.commentData[index].commenterName,
-                                                  style: GoogleFonts.aBeeZee(
-                                                    fontSize: screenFactor * 30,
-                                                    fontWeight: FontWeight.bold,
+                                                InkWell(
+                                                  onTap: (){
+                                                    context.read<UserProfileBloc>().add(UserProfileDataEvent(state.commentData[index].email,context));
+                                                    mainLoading(context);
+                                                  },
+                                                  child: Text(state.commentData[index].commenterName,
+                                                    style: GoogleFonts.aBeeZee(
+                                                      fontSize: screenFactor * 30,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
                                                   ),
                                                 ),
                                                 Text(state.commentData[index].dateTime,

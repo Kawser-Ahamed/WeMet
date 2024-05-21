@@ -34,6 +34,12 @@ import 'package:wemet/features/edit_profile/domain/usecase/edit_profile_usecase.
 import 'package:wemet/features/profile/domain/usecase/profile_usecase.dart';
 import 'package:wemet/features/edit_profile/presentation/bloc/edit_profile_bloc.dart';
 import 'package:wemet/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:wemet/features/search/data/datasource/search_datasource.dart';
+import 'package:wemet/features/search/data/repositories/search_repository_implementation.dart';
+import 'package:wemet/features/search/domain/repositories/search_repository.dart';
+import 'package:wemet/features/search/domain/usecase/random_user_usecase.dart';
+import 'package:wemet/features/search/domain/usecase/search_user_use_case.dart';
+import 'package:wemet/features/search/presentation/bloc/search_bloc.dart';
 import 'package:wemet/features/upload/data/datasource/upload_post_datasource.dart';
 import 'package:wemet/features/upload/data/repositories/upload_post_repository_implementation.dart';
 import 'package:wemet/features/upload/domain/repositories/upload_post_repository.dart';

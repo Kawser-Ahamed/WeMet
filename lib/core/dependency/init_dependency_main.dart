@@ -11,6 +11,7 @@ Future<void> initDependency() async{
   _commentDependency();
   _userProfileDependency();
   _editProfileDependency();
+  _searchDependency();
 }
 
 void _initAuth(){
@@ -136,6 +137,23 @@ void _editProfileDependency(){
       editProfileUsecase: serviceLocator(),
       editprofilePictureUsecase: serviceLocator(),
       editCoverPhotoUsecase: serviceLocator(),
+    ),
+  );
+}
+
+void _searchDependency(){
+  serviceLocator..registerFactory<SearchDataSource>(
+    () => SearchDataSourceImplementation(),
+  )..registerFactory<SearchRepository>(
+    () => SearchRepositoryImplementation(serviceLocator()),
+  )..registerFactory<RandomUserUsecase>(
+    () => RandomUserUsecase(serviceLocator()),
+  )..registerFactory<SearchUserUsecase>(
+    () => SearchUserUsecase(serviceLocator()),
+    )..registerFactory<SearchBloc>(
+    () => SearchBloc(
+      randomUserUsecase: serviceLocator(),
+      searchUserUsecase: serviceLocator(),
     ),
   );
 }

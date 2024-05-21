@@ -2,7 +2,9 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wemet/config/routes/app_routes_constant.dart';
 import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/core/reusable/main_loading.dart';
 import 'package:wemet/core/status/ui_status.dart';
@@ -124,9 +126,22 @@ class _PostsState extends State<Posts> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(height: height * 0.02),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(screenFactor * 30),
-                              child: Image.network(state.postData[index].imageUrl)
+                            InkWell(
+                              onTap: (){
+                                GoRouter.of(context).pushNamed(
+                                  AppRoutesConstant.postViewPage,pathParameters: {
+                                    'imageUrl' : state.postData[index].imageUrl,
+                                    'name' : state.postData[index].uploaderName,
+                                    'profileImage' : state.postData[index].uploaderProfilePictureImageUrl,
+                                    'dateTime' : state.postData[index].dateTime,
+                                    'caption' : state.postData[index].caption,
+                                  }
+                                );
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(screenFactor * 30),
+                                child: Image.network(state.postData[index].imageUrl)
+                              ),
                             )
                           ],
                         ): const SizedBox(),

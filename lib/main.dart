@@ -12,6 +12,7 @@ import 'package:wemet/features/home/presentation/bloc/post_category/post_categor
 import 'package:wemet/features/home/presentation/bloc/posts/posts_bloc.dart';
 import 'package:wemet/features/edit_profile/presentation/bloc/edit_profile_bloc.dart';
 import 'package:wemet/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:wemet/features/search/presentation/bloc/search_bloc.dart';
 import 'package:wemet/features/upload/presentation/bloc/upload_post_bloc.dart';
 import 'package:wemet/features/user_profile/presentation/bloc/user_profile_bloc.dart';
 import 'package:wemet/firebase_options.dart';
@@ -42,6 +43,7 @@ class WeMet extends StatelessWidget {
         BlocProvider(create: (context) => serviceLocator<CommentBloc>()),
         BlocProvider(create: (context) => serviceLocator<UserProfileBloc>()),
         BlocProvider(create: (context) => serviceLocator<EditProfileBloc>()),
+        BlocProvider(create: (context) => serviceLocator<SearchBloc>()),
       ],
       child: BlocBuilder<ThemeBloc,ThemeMode>(
         builder: (context, themeState) {

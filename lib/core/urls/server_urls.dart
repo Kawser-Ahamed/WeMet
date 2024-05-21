@@ -12,4 +12,6 @@ class Serverurls{
   static String updateProfile = "https://wemet-kawser-ahameds-projects.vercel.app/update_profile";
   static String updateProfilePicture = "https://wemet-kawser-ahameds-projects.vercel.app/update_profile_picture";
   static String updateCoverPhoto = "https://wemet-kawser-ahameds-projects.vercel.app/update_cover_photo";
+  static String randomUser = "https://wemet-kawser-ahameds-projects.vercel.app/get_random_user";
+  static String searchUrl = "https://wemet-kawser-ahameds-projects.vercel.app/get_search_user";
 }

@@ -33,5 +33,5 @@ class UserProfileState extends Equatable {
   }
   
   @override
-  List<Object> get props => [userprofileData,userProfilePost,uiStatus,message];
+  List<Object> get props => [userProfilePost,userprofileData,uiStatus,message];
 }
