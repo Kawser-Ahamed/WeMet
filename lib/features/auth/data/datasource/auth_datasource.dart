@@ -108,17 +108,6 @@ class AuthDatasourceImplementation implements AuthDatasource{
   }
 
   Future<List<UserModel>> getUser(String email) async{
-    // try{
-    //   List<UserModel> userData = [];
-    //   QuerySnapshot<Map<String,dynamic>> querySnapshot = await FirebaseFirestore.instance.collection(email).get();
-    //   for (var values in querySnapshot.docs) {
-    //     userData.add(UserModel.fromJson(values.data()));
-    //   }
-    //   return userData;
-    // }
-    // catch(error){
-    //   throw error.toString();
-    // }
     try{
       List<UserModel> userData = [];
       var response = await http.get(Uri.parse('${Serverurls.userData}/$email'));
@@ -137,17 +126,6 @@ class AuthDatasourceImplementation implements AuthDatasource{
   
   @override
   Future<List<UserModel>> getUserData(String email) async{
-    // try{
-    //   List<UserModel> userData = [];
-    //   QuerySnapshot<Map<String,dynamic>> querySnapshot = await FirebaseFirestore.instance.collection(email).get();
-    //   for(var values in querySnapshot.docs){
-    //     userData.add(UserModel.fromJson(values.data()));
-    //   }
-    //   return userData;
-    // }
-    // catch(error){
-    //   throw Exception(error);
-    // }
     try{
       List<UserModel> userData = [];
       var response = await http.get(Uri.parse('${Serverurls.userData}/$email'));

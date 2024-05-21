@@ -31,7 +31,7 @@ class EditProfileRepositoryImplementation implements EditProfileRepository{
   @override
   Future<Either<Failure, String>> updateProfilePicture(File profilePicture,String email) async{
     try{
-      final response = await editProfileDataSource.updateprofilePicture(profilePicture,email);
+      final response = await editProfileDataSource.updateProfilePicture(profilePicture,email);
       return right(response);
     }
     catch(error){

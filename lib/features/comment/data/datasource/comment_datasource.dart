@@ -15,7 +15,7 @@ class CommentDatasourceImplementation implements CommentDataSource{
   Future<List<CommentModel>> fetchComment(int id) async{
     try{
       List<CommentModel> commentData = [];
-      var response = await http.get(Uri.parse('${Serverurls.fetchComment}/$id'));
+      var response = await http.get(Uri.parse('${Serverurls.fetchComment}/${id.toString()}'));
       if(response.statusCode == 200){
         var data = jsonDecode(response.body.toString());
         for(var values in data){

@@ -9,4 +9,7 @@ class Serverurls{
   static String fetchComment = "https://wemet-kawser-ahameds-projects.vercel.app/fetch_comment";
   static String addUser = "https://wemet-kawser-ahameds-projects.vercel.app/add_user";
   static String userData = "https://wemet-kawser-ahameds-projects.vercel.app/get_user_data";
+  static String updateProfile = "https://wemet-kawser-ahameds-projects.vercel.app/update_profile";
+  static String updateProfilePicture = "https://wemet-kawser-ahameds-projects.vercel.app/update_profile_picture";
+  static String updateCoverPhoto = "https://wemet-kawser-ahameds-projects.vercel.app/update_cover_photo";
 }

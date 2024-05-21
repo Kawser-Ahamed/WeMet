@@ -24,7 +24,7 @@ class CommentBloc extends Bloc<Commentevent, CommentState> {
   Future<void> _uploadComment(UploadCommentEvent event, Emitter<CommentState> emit)async {
     final response = await _uploadCommentUsecase(
       CommentEntities(
-        id: event.id, 
+        id: event.id.toString(), 
         comment: event.comment, 
         dateTime: event.dateTime, 
         commenterName: event.commenterName, 

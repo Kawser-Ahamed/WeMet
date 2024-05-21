@@ -1,6 +1,6 @@
 class CommentEntities{
 
-  final int id;
+  final String id;
   final String comment;
   final String dateTime;
   final String commenterName;

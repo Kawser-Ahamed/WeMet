@@ -14,7 +14,7 @@ class CommentRepositoryImplementation implements CommentRepository{
   Future<Either<Failure, String>> uploadComment(CommentEntities commentEntities) async{
     try{
       CommentModel commentModel = CommentModel(
-        id: commentEntities.id, 
+        id: commentEntities.id.toString(), 
         comment: commentEntities.comment, 
         dateTime: commentEntities.dateTime,
         commenterName: commentEntities.commenterName, 

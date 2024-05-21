@@ -9,6 +9,8 @@ import 'package:wemet/features/edit_profile/domain/usecase/edit_profile_picture_
 import 'package:wemet/features/edit_profile/domain/usecase/edit_profile_usecase.dart';
 import 'package:wemet/features/edit_profile/presentation/bloc/edit_profile_event.dart';
 import 'package:wemet/features/edit_profile/presentation/bloc/edit_profile_state.dart';
+import 'package:wemet/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:wemet/features/profile/presentation/bloc/profile_event.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   final EditProfileUsecase _editProfileUsecase;
@@ -40,6 +42,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       (r){
         emit(state.copyWith(message: r));
         event.context.read<AuthBloc>().add(UserDataEvent(email: event.email, context: event.context));
+        event.context.read<ProfileBloc>().add(ProfileDataEvent(email: event.email));
         ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(content: Text(state.message)));
       },
     );
@@ -52,6 +55,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       (r){
         emit(state.copyWith(message: r));
         event.context.read<AuthBloc>().add(UserDataEvent(email: event.email, context: event.context));
+        event.context.read<ProfileBloc>().add(ProfileDataEvent(email: event.email));
         ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(content: Text(state.message)));
       }
     );

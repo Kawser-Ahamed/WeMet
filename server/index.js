@@ -94,18 +94,69 @@ app.get('/get_profile_data/:email', async(req,res)=>{
     }
 });
 
+const updateProfileCollection = client.db(databaseName).collection('users');
+app.put('/update_profile/:email', (req,res)=>{
+    updateProfileCollection.updateOne({email: req.params.email},{
+        $set: {
+            fullName : req.body.fullName,
+            bio: req.body.bio,
+        },
+    }).then((value)=>{
+        client.db(databaseName).collection('all').updateMany({email: req.params.email},{
+            $set :{
+                uploaderName : req.body.fullName,
+            },
+        }).then((value)=> {
+            client.db(databaseName).collection('posts-comments').updateMany({email: req.params.email},{
+                $set : {
+                    commenterName : req.body.fullName,
+                }
+            })
+            .then((value)=> res.send('Profile updated successfully.'))
+            .catch((error) => res.send(error));
+        })
+        .catch((error)=> res.send(error));
+    })
+    .catch((error)=> res.send(error));
+})
+
+app.put('/update_profile_picture/:email', (req,res)=>{
+    updateProfileCollection.updateOne({email : req.params.email},{
+        $set: {
+            profileImageUrl : req.body.profileImageUrl,
+        }
+    }).then((value)=>{
+        client.db(databaseName).collection('all').updateMany({email: req.params.email},{
+            $set : {
+                uploaderProfilePictureImageUrl : req.body.profileImageUrl,
+            }
+        }).then((value)=> res.send('Profile Picture updated successfully.'))
+        .catch((error)=>res.send(error));
+    })
+    .catch((error)=> res.send(error))
+});
+
+app.put('/update_cover_photo/:email',(req,res)=>{
+    updateProfileCollection.updateOne({email : req.params.email},{
+        $set : {
+            coverPhotoUrl : req.body.coverPhotoUrl,
+        }
+    })
+    .then((value)=> res.send('Cover Photo updated successfully.'))
+    .catch((error)=>res.send(error));
+});
 
 app.post('/upload_comment/:id', (req,res)=>{
-    const uploadCommentCollection = client.db(databaseName).collection(`post-no-${req.params.id}-comments`);
+    const uploadCommentCollection = client.db(databaseName).collection('posts-comments');
     uploadCommentCollection.insertOne(req.body)
     .then((value)=> res.send('Your Comment Successfully Uploaded'))
     .catch((error)=> res.send(error));
 });
 
 app.get('/fetch_comment/:id', async (req,res)=>{
-    const fetchCommentCollection = client.db(databaseName).collection(`post-no-${req.params.id}-comments`);
+    const fetchCommentCollection = client.db(databaseName).collection('posts-comments');
     try{
-        var values = fetchCommentCollection.find();
+        var values = fetchCommentCollection.find({id: req.params.id});
         var json = await values.toArray();
         res.send(json);
     }
