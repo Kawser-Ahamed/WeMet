@@ -213,6 +213,54 @@ app.get('/get_search_user/:searchvalue', async(req,res)=>{
     }
 });
 
+app.post('/add_following', async (req,res)=>{
+    try{
+        const addFollwoingCollection = client.db(databaseName).collection(`${req.body.userEmail}-following`);
+        
+        addFollwoingCollection.insertOne({
+            'followingEmail' : req.body.followingEmail,
+        });
+
+        let userFollowing = await client.db(databaseName).collection('users').findOne({email : req.body.userEmail});
+        let followingResponse = await client.db(databaseName).collection('users').findOne({email : req.body.followingEmail});
+        
+        client.db(databaseName).collection('users').updateOne({email : req.body.userEmail},{
+            $set: {
+                following : (userFollowing['following'] + 1),
+            }
+        });
+
+        client.db(databaseName).collection('users').updateOne({email : req.body.followingEmail},{
+            $set: {
+                followers : (followingResponse['followers'] + 1),
+            }
+        });
+
+        res.send("You are now following ");
+    }
+    catch(error){
+        res.send(error);
+    }
+    
+});
+
+const followersCollection = client.db(databaseName).collection('follower');
+app.get('/get_followers_data', async(req,res)=>{
+    try{
+        let followersData = [];
+        var values = followersCollection.find();
+        var json = await values.toArray();
+        for(let i in json){
+            let followers =  await client.db(databaseName).collection('users').findOne({email : json[i]['email']});
+            followersData.push(followers);
+        }
+        res.send(followersData);
+    }
+    catch(error){
+        res.send(error);
+    }
+})
+
 app.listen(port,()=>{
     console.log(`Server Running on ${port}`);
 })

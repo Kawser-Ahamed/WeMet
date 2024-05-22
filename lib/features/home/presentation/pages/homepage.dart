@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wemet/features/home/presentation/widget/followers.dart';
+import 'package:wemet/features/following/presentation/pages/following.dart';
 import 'package:wemet/features/home/presentation/widget/post_category.dart';
 import 'package:wemet/features/home/presentation/widget/posts.dart';
 import 'package:wemet/features/home/presentation/widget/wemet_appbar.dart';
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
       body: const Column(
         children: [
           WemetAppBar(),
-          Followers(),
+          Following(),
           PostCategory(),
           Expanded(child: Posts()),
         ],

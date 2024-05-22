@@ -6,14 +6,14 @@ import 'package:wemet/core/urls/app_image_urls.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_state.dart';
 
-class Followers extends StatefulWidget {
-  const Followers({super.key});
+class Following extends StatefulWidget {
+  const Following({super.key});
 
   @override
-  State<Followers> createState() => _FollowersState();
+  State<Following> createState() => _FollowingState();
 }
 
-class _FollowersState extends State<Followers> {
+class _FollowingState extends State<Following> {
   @override
   Widget build(BuildContext context) {
     double height = Screen.screenHeight(context);
@@ -29,7 +29,7 @@ class _FollowersState extends State<Followers> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(width: width * 0.03,),
+            SizedBox(width: width * 0.03),
             Container(
               width: height * 0.08,
               color: Colors.transparent,

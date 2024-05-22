@@ -14,7 +14,11 @@ class ProfileState extends Equatable {
     this.message = '',
   });
 
-  ProfileState copyWith({List<ProfileEntities> ? profileData, UiStatus ? uiStatus, String ? message}){
+  ProfileState copyWith({
+    List<ProfileEntities> ? profileData, 
+    UiStatus ? uiStatus, 
+    String ? message
+  }){
     return ProfileState(
       profileData: profileData ?? this.profileData,
       message: message ?? this.message,

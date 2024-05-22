@@ -12,6 +12,7 @@ Future<void> initDependency() async{
   _userProfileDependency();
   _editProfileDependency();
   _searchDependency();
+  _followingDependency();
 }
 
 void _initAuth(){
@@ -154,6 +155,20 @@ void _searchDependency(){
     () => SearchBloc(
       randomUserUsecase: serviceLocator(),
       searchUserUsecase: serviceLocator(),
+    ),
+  );
+}
+
+void _followingDependency(){
+  serviceLocator..registerFactory<FollowingDatasource>(
+    () => FollowingDatasourceImplementation()
+  )..registerFactory<FollowingRepository>(
+    () => FollowingRepositoryImplementation(serviceLocator()),
+  )..registerFactory<AddFollowingUsecase>(
+    () => AddFollowingUsecase(serviceLocator())
+  )..registerFactory<FollowingBloc>(
+    () => FollowingBloc(
+      addFollowingUsecase: serviceLocator(),
     ),
   );
 }

@@ -17,6 +17,11 @@ import 'package:wemet/features/edit_profile/data/repositories/edit_profile_repos
 import 'package:wemet/features/edit_profile/domain/repositories/edit_profile_repository.dart';
 import 'package:wemet/features/edit_profile/domain/usecase/edit_cover_photo_usecase.dart';
 import 'package:wemet/features/edit_profile/domain/usecase/edit_profile_picture_usecase.dart';
+import 'package:wemet/features/following/data/datasource/following_datasource.dart';
+import 'package:wemet/features/following/data/repositories/following_repository_implementation.dart';
+import 'package:wemet/features/following/domain/repositories/following_repository.dart';
+import 'package:wemet/features/following/domain/usecase/add_following_usecase.dart';
+import 'package:wemet/features/following/presentation/bloc/following_bloc.dart';
 import 'package:wemet/features/home/data/datasource/post_category_datasource.dart';
 import 'package:wemet/features/home/data/datasource/posts_datasource.dart';
 import 'package:wemet/features/home/data/repositories/post_category_repository_implementation.dart';

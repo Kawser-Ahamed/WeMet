@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wemet/core/responsive/screen.dart';
+import 'package:wemet/core/reusable/main_loading.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wemet/features/comment/presentation/widgets/comment_design.dart';
+import 'package:wemet/features/following/presentation/bloc/following_bloc.dart';
+import 'package:wemet/features/following/presentation/bloc/following_event.dart';
 import 'package:wemet/features/user_profile/presentation/bloc/user_profile_bloc.dart';
 import 'package:wemet/features/user_profile/presentation/bloc/user_profile_state.dart';
 
@@ -150,18 +153,30 @@ class _UserProfileState extends State<UserProfile> {
                               ),
                               SizedBox(height: height * 0.02),
                               (BlocProvider.of<AuthBloc>(context).state.userData.first.id != BlocProvider.of<UserProfileBloc>(context).state.userprofileData.first.id) ?
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(screenFactor * 50),
-                                ),
-                                child: Padding(
-                                  padding:  EdgeInsets.symmetric(horizontal: width * 0.1,vertical: height * 0.01),
-                                  child: Text("Follow",
-                                    style: TextStyle(
-                                      fontSize: screenFactor * 30,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                              InkWell(
+                                onTap: (){
+                                  context.read<FollowingBloc>().add(
+                                    AddFollowingEvent(
+                                      userEmail: BlocProvider.of<AuthBloc>(context).state.userData.first.email, 
+                                      followingEmail: state.userprofileData.first.email, 
+                                      context: context
+                                    ),
+                                  );
+                                  mainLoading(context);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(screenFactor * 50),
+                                  ),
+                                  child: Padding(
+                                    padding:  EdgeInsets.symmetric(horizontal: width * 0.1,vertical: height * 0.01),
+                                    child: Text("Follow",
+                                      style: TextStyle(
+                                        fontSize: screenFactor * 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
