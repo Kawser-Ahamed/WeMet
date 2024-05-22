@@ -47,6 +47,7 @@ class SignInEvent extends AuthEvent{
 class UserDataEvent extends AuthEvent{
   
   final String email;
+  final bool isView;
   BuildContext context;
-  UserDataEvent({required this.email,required this.context});
+  UserDataEvent({required this.email,required this.isView,required this.context});
 }

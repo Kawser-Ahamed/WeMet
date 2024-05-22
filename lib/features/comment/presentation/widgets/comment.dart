@@ -120,7 +120,7 @@ Future<void> comments(BuildContext context,String uploaderName){
                                               children: [
                                                 InkWell(
                                                   onTap: (){
-                                                    context.read<UserProfileBloc>().add(UserProfileDataEvent(state.commentData[index].email,context));
+                                                    context.read<UserProfileBloc>().add(UserProfileDataEvent(email: state.commentData[index].email,isView: true,context: context));
                                                     mainLoading(context);
                                                   },
                                                   child: Text(state.commentData[index].commenterName,

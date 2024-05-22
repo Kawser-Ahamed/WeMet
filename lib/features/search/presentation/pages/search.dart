@@ -137,7 +137,7 @@ class _SearchState extends State<Search> {
                                         children: [
                                           InkWell(
                                             onTap: (){
-                                              context.read<UserProfileBloc>().add(UserProfileDataEvent(state.randomUser.first.email, context));
+                                              context.read<UserProfileBloc>().add(UserProfileDataEvent(email: state.randomUser.first.email,isView: true,context: context));
                                               mainLoading(context);
                                             },
                                             child: Container(
@@ -156,7 +156,7 @@ class _SearchState extends State<Search> {
                                           SizedBox(height: height * 0.005),
                                           InkWell(
                                             onTap: (){
-                                              context.read<UserProfileBloc>().add(UserProfileDataEvent(state.randomUser.first.email, context));
+                                              context.read<UserProfileBloc>().add(UserProfileDataEvent(email: state.randomUser.first.email,isView: true,context: context));
                                               mainLoading(context);
                                             },
                                             child: Text(state.randomUser.first.fullName,
@@ -202,7 +202,7 @@ class _SearchState extends State<Search> {
                                     color: Theme.of(context).colorScheme.background,
                                     child: InkWell(
                                       onTap: (){
-                                        context.read<UserProfileBloc>().add(UserProfileDataEvent(state.searchUser[index].email, context));
+                                        context.read<UserProfileBloc>().add(UserProfileDataEvent(email: state.searchUser[index].email,isView: true,context: context));
                                         mainLoading(context);
                                       },
                                       child: Container(

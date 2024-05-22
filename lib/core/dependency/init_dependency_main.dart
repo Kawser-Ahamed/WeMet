@@ -166,9 +166,15 @@ void _followingDependency(){
     () => FollowingRepositoryImplementation(serviceLocator()),
   )..registerFactory<AddFollowingUsecase>(
     () => AddFollowingUsecase(serviceLocator())
+  )..registerFactory<FetchFollowingUsecase>(
+    () => FetchFollowingUsecase(serviceLocator()),
+  )..registerFactory<RemoveFollowingUsecase>(
+    () => RemoveFollowingUsecase(serviceLocator()),
   )..registerFactory<FollowingBloc>(
     () => FollowingBloc(
       addFollowingUsecase: serviceLocator(),
+      fetchFollowingUsecase: serviceLocator(),
+      removeFollowingUsecase: serviceLocator(),
     ),
   );
 }

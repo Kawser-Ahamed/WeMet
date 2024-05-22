@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     else{
       context.read<ThemeBloc>().add(PrimaryChangeThemeEvent());
-      context.read<AuthBloc>().add(UserDataEvent(email: email, context: context));
+      context.read<AuthBloc>().add(UserDataEvent(email: email,isView: true, context: context));
     }
   }
 

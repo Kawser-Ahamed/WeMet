@@ -21,6 +21,8 @@ import 'package:wemet/features/following/data/datasource/following_datasource.da
 import 'package:wemet/features/following/data/repositories/following_repository_implementation.dart';
 import 'package:wemet/features/following/domain/repositories/following_repository.dart';
 import 'package:wemet/features/following/domain/usecase/add_following_usecase.dart';
+import 'package:wemet/features/following/domain/usecase/fetch_following_usecase.dart';
+import 'package:wemet/features/following/domain/usecase/remove_following_usecase.dart';
 import 'package:wemet/features/following/presentation/bloc/following_bloc.dart';
 import 'package:wemet/features/home/data/datasource/post_category_datasource.dart';
 import 'package:wemet/features/home/data/datasource/posts_datasource.dart';

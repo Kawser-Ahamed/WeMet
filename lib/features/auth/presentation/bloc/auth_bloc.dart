@@ -91,7 +91,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (r){
         emit(state.copyWith(userData: r,uiStatus: UiStatus.success));
         event.context.read<ProfileBloc>().add(ProfileDataEvent(email: state.userData.first.email));
-        GoRouter.of(event.context).pushNamed(AppRoutesConstant.mainPage);
+       if(event.isView){
+          GoRouter.of(event.context).pushNamed(AppRoutesConstant.mainPage);
+       }
       },
     );
   }

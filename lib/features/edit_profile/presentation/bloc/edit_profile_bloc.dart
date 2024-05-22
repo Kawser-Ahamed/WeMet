@@ -41,7 +41,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       (l) => emit(state.copyWith(message: l.message)),
       (r){
         emit(state.copyWith(message: r));
-        event.context.read<AuthBloc>().add(UserDataEvent(email: event.email, context: event.context));
+        event.context.read<AuthBloc>().add(UserDataEvent(email: event.email,isView: true,context: event.context));
         event.context.read<ProfileBloc>().add(ProfileDataEvent(email: event.email));
         ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(content: Text(state.message)));
       },
@@ -54,7 +54,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       (l) => emit(state.copyWith(message: l.message)), 
       (r){
         emit(state.copyWith(message: r));
-        event.context.read<AuthBloc>().add(UserDataEvent(email: event.email, context: event.context));
+        event.context.read<AuthBloc>().add(UserDataEvent(email: event.email,isView: true ,context: event.context));
         event.context.read<ProfileBloc>().add(ProfileDataEvent(email: event.email));
         ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(content: Text(state.message)));
       }
@@ -67,7 +67,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       (l) => emit(state.copyWith(message: l.message)), 
       (r){
         emit(state.copyWith(message: r));
-        event.context.read<AuthBloc>().add(UserDataEvent(email: event.email, context: event.context));
+        event.context.read<AuthBloc>().add(UserDataEvent(email: event.email,isView: true,context: event.context));
         ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(content: Text(state.message)));
       }
     );

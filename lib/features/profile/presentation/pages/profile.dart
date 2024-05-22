@@ -144,7 +144,7 @@ class _ProfileState extends State<Profile> {
                       children: [
                         Column(
                           children: [
-                            Text(state.userData.first.following.toString(),
+                            Text(state.userData.first.followers.toString(),
                               style: GoogleFonts.aBeeZee(
                                 fontSize: screenFactor * 30,
                               ),
@@ -159,7 +159,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         Column(
                           children: [
-                            Text(state.userData.first.followers.toString(),
+                            Text(state.userData.first.following.toString(),
                               style: GoogleFonts.aBeeZee(
                                 fontSize: screenFactor * 30,
                               ),

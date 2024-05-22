@@ -83,7 +83,7 @@ class _PostsState extends State<Posts> {
                                 children: [
                                   InkWell(
                                     onTap: (){
-                                      context.read<UserProfileBloc>().add(UserProfileDataEvent(state.postData[index].email,context));
+                                      context.read<UserProfileBloc>().add(UserProfileDataEvent(email: state.postData[index].email,isView: true,context: context));
                                       mainLoading(context);
                                     },
                                     child: Text(state.postData[index].uploaderName,

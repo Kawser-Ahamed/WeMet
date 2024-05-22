@@ -155,14 +155,28 @@ class _UserProfileState extends State<UserProfile> {
                               (BlocProvider.of<AuthBloc>(context).state.userData.first.id != BlocProvider.of<UserProfileBloc>(context).state.userprofileData.first.id) ?
                               InkWell(
                                 onTap: (){
-                                  context.read<FollowingBloc>().add(
-                                    AddFollowingEvent(
-                                      userEmail: BlocProvider.of<AuthBloc>(context).state.userData.first.email, 
-                                      followingEmail: state.userprofileData.first.email, 
-                                      context: context
-                                    ),
-                                  );
-                                  mainLoading(context);
+                                  if(BlocProvider.of<FollowingBloc>(context).state.followingUserMap.containsKey(state.userprofileData.first.id)){
+                                    context.read<FollowingBloc>().add(
+                                      RemoveFollowingEvent(
+                                        userEmail:  BlocProvider.of<AuthBloc>(context).state.userData.first.email, 
+                                        followingEmail: state.userprofileData.first.email, 
+                                        fullName: state.userprofileData.first.fullName,
+                                        context: context,
+                                      )
+                                    );
+                                    mainLoading(context);
+                                  }
+                                  else{
+                                    context.read<FollowingBloc>().add(
+                                      AddFollowingEvent(
+                                        userEmail: BlocProvider.of<AuthBloc>(context).state.userData.first.email, 
+                                        followingEmail: state.userprofileData.first.email, 
+                                        fullName: state.userprofileData.first.fullName,
+                                        context: context
+                                      ),
+                                    );
+                                    mainLoading(context);
+                                  }
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -171,7 +185,13 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                   child: Padding(
                                     padding:  EdgeInsets.symmetric(horizontal: width * 0.1,vertical: height * 0.01),
-                                    child: Text("Follow",
+                                    child: (BlocProvider.of<FollowingBloc>(context).state.followingUserMap.containsKey(state.userprofileData.first.id)) ? Text("Following",
+                                      style: TextStyle(
+                                        fontSize: screenFactor * 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ) : Text("Follow",
                                       style: TextStyle(
                                         fontSize: screenFactor * 30,
                                         fontWeight: FontWeight.bold,

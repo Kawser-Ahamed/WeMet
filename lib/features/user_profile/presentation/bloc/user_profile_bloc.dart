@@ -41,7 +41,9 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       (r){
         emit(state.copyWith(userProfilePost: r,uiStatus: UiStatus.success));
         Navigator.pop(event.context);
-        GoRouter.of(event.context).pushNamed(AppRoutesConstant.userprofile);
+        if(event.isView){
+          GoRouter.of(event.context).pushNamed(AppRoutesConstant.userprofile);
+        }
       }
     );
   }

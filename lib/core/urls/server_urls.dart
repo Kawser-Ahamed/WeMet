@@ -15,4 +15,6 @@ class Serverurls{
   static String randomUser = "https://wemet-kawser-ahameds-projects.vercel.app/get_random_user";
   static String searchUrl = "https://wemet-kawser-ahameds-projects.vercel.app/get_search_user";
   static String addFollowing = "https://wemet-kawser-ahameds-projects.vercel.app/add_following";
+  static String removeFollowing = "https://wemet-kawser-ahameds-projects.vercel.app/remove_following";
+  static String fetchFollowing = "https://wemet-kawser-ahameds-projects.vercel.app/get_following_data";
 }

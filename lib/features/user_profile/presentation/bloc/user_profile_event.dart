@@ -11,8 +11,9 @@ class UserProfileEvent extends Equatable {
 class UserProfileDataEvent extends UserProfileEvent{
 
   final String email;
+    final bool isView;
   final BuildContext context;
-  const UserProfileDataEvent(this.email,this.context);
+  const UserProfileDataEvent({required this.email,required this.isView, required this.context});
 
 }
 
