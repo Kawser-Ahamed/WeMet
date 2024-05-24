@@ -2,7 +2,9 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wemet/config/routes/app_routes_constant.dart';
 import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/core/reusable/main_loading.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
@@ -55,6 +57,8 @@ class _UserProfileState extends State<UserProfile> {
                           icon: Icon(Icons.arrow_back,size: screenFactor * 60),
                         ),
                         Text("${state.userprofileData.first.fullName}'s Profile",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.aBeeZee(
                             fontSize: screenFactor * 30,
                             fontWeight: FontWeight.normal,
@@ -62,7 +66,7 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                         IconButton(
                           onPressed: (){
-                            Navigator.pop(context);
+                            GoRouter.of(context).pushNamed(AppRoutesConstant.search);
                           }, 
                           icon: Icon(Icons.search,size: screenFactor * 60),
                         ),
@@ -80,17 +84,43 @@ class _UserProfileState extends State<UserProfile> {
                           color: Theme.of(context).colorScheme.background,
                           child: Stack(
                             children: [
-                              Container(
-                                width: width,
-                                color: Theme.of(context).colorScheme.background,
-                                child: Image.network(state.userprofileData.first.coverPhotoUrl,fit: BoxFit.fitWidth),
+                              InkWell(
+                                onTap: (){
+                                  GoRouter.of(context).pushNamed(
+                                    AppRoutesConstant.postViewPage,pathParameters: {
+                                      'imageUrl' : state.userprofileData.first.coverPhotoUrl,
+                                      'name' : state.userprofileData.first.fullName,
+                                      'profileImage' : state.userprofileData.first.profileImageUrl,
+                                      'dateTime' : " ",
+                                      'caption' : " ",
+                                    }
+                                  );
+                                },
+                                child: Container(
+                                  width: width,
+                                  color: Theme.of(context).colorScheme.background,
+                                  child: Image.network(state.userprofileData.first.coverPhotoUrl,fit: BoxFit.fitWidth),
+                                ),
                               ),
                               Positioned(
                                 bottom: height * 0.01,
                                 left: width * 0.03,
-                                child: CircleAvatar(
-                                  radius: height * 0.06,
-                                  backgroundImage: NetworkImage(state.userprofileData.first.profileImageUrl),
+                                child: InkWell(
+                                  onTap: (){
+                                    GoRouter.of(context).pushNamed(
+                                      AppRoutesConstant.postViewPage,pathParameters: {
+                                        'imageUrl' : state.userprofileData.first.profileImageUrl,
+                                        'name' : state.userprofileData.first.fullName,
+                                        'profileImage' : state.userprofileData.first.profileImageUrl,
+                                        'dateTime' : " ",
+                                        'caption' : " ",
+                                      }
+                                    );
+                                  },
+                                  child: CircleAvatar(
+                                    radius: height * 0.06,
+                                    backgroundImage: NetworkImage(state.userprofileData.first.profileImageUrl),
+                                  ),
                                 ),
                               ), 
                             ],
@@ -287,9 +317,22 @@ class _UserProfileState extends State<UserProfile> {
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               SizedBox(height: height * 0.02),
-                                              ClipRRect(
-                                                borderRadius: BorderRadius.circular(screenFactor * 30),
-                                                child: Image.network(state.userProfilePost[index].imageUrl)
+                                              InkWell(
+                                                onTap: (){
+                                                  GoRouter.of(context).pushNamed(
+                                                    AppRoutesConstant.postViewPage,pathParameters: {
+                                                      'imageUrl' : state.userProfilePost.first.imageUrl,
+                                                      'name' : state.userprofileData.first.fullName,
+                                                      'profileImage' : state.userprofileData.first.profileImageUrl,
+                                                      'dateTime' : state.userProfilePost[index].dateTime,
+                                                      'caption' : state.userProfilePost[index].caption,
+                                                    }
+                                                  );
+                                                },
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(screenFactor * 20),
+                                                  child: Image.network(state.userProfilePost[index].imageUrl)
+                                                ),
                                               )
                                             ],
                                           ): const SizedBox(),

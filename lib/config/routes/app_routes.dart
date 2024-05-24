@@ -5,9 +5,11 @@ import 'package:wemet/features/auth/presentation/pages/sign_up.dart';
 import 'package:wemet/features/edit_profile/presentation/pages/edit_picture.dart';
 import 'package:wemet/features/edit_profile/presentation/pages/edit_profile.dart';
 import 'package:wemet/features/home/presentation/widget/post_view_page.dart';
+import 'package:wemet/features/search/presentation/pages/search.dart';
 import 'package:wemet/features/user_profile/presentation/pages/user_profile.dart';
-import 'package:wemet/mainpage.dart';
-import 'package:wemet/splash_screen.dart';
+import 'package:wemet/features/welcome_screens/presentation/pages/mainpage.dart';
+import 'package:wemet/features/welcome_screens/presentation/pages/splash_screen.dart';
+import 'package:wemet/features/welcome_screens/presentation/pages/welcome_screen.dart';
 
 class AppRoutes{
   static final GoRouter router = GoRouter(
@@ -17,6 +19,13 @@ class AppRoutes{
         name: AppRoutesConstant.splashScreen,
         builder: (context, state) {
           return const SplashScreen();
+        },
+      ),
+      GoRoute(
+        path: '/welcomePage',
+        name: AppRoutesConstant.welcomePage,
+        builder: (context, state) {
+          return const WelcomeScreen();
         },
       ),
       GoRoute(
@@ -44,6 +53,13 @@ class AppRoutes{
         path: '/userProfile',
         name: AppRoutesConstant.userprofile,
         builder: (context, state) => const UserProfile(),
+      ),
+      GoRoute(
+        path: '/search',
+        name: AppRoutesConstant.search,
+        builder: (context, state) {
+          return const Search();
+        },
       ),
       GoRoute(
         path: '/editProfile/:fullName/:bio/:email',

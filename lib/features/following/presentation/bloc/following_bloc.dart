@@ -45,11 +45,11 @@ class FollowingBloc extends Bloc<FollowingEvent, FollowingState> {
       (r){
         emit(state.copyWith(message: r));
         event.context.read<FollowingBloc>().add(FetchFollowingEvent(email: event.userEmail));
-        event.context.read<AuthBloc>().add(UserDataEvent(email: event.userEmail, context: event.context, isView: false));
-        event.context.read<UserProfileBloc>().add(UserProfileDataEvent(email: event.followingEmail,isView: false,context: event.context));
         ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(content: Text('${state.message} ${event.fullName}')));
       }
     );
+    event.context.read<AuthBloc>().add(UserDataEvent(email: event.userEmail, context: event.context, isView: false));
+    event.context.read<UserProfileBloc>().add(UserProfileDataEvent(email: event.followingEmail,isView: false,context: event.context));
   } 
 
   Future<void> _fetchFollowingData(FetchFollowingEvent event, Emitter<FollowingState> emit) async{
@@ -74,10 +74,10 @@ class FollowingBloc extends Bloc<FollowingEvent, FollowingState> {
       (r){
         emit(state.copyWith(message: r));
         event.context.read<FollowingBloc>().add(FetchFollowingEvent(email: event.userEmail));
-        event.context.read<AuthBloc>().add(UserDataEvent(email: event.userEmail, context: event.context, isView: false));
-        event.context.read<UserProfileBloc>().add(UserProfileDataEvent(email: event.followingEmail,isView: false,context: event.context));
         ScaffoldMessenger.of(event.context).showSnackBar(SnackBar(content: Text('${state.message} ${event.fullName}')));
       }
     );
+    event.context.read<AuthBloc>().add(UserDataEvent(email: event.userEmail, context: event.context, isView: false));
+    event.context.read<UserProfileBloc>().add(UserProfileDataEvent(email: event.followingEmail,isView: false,context: event.context));
   } 
 }

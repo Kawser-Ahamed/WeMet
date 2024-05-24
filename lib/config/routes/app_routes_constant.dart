@@ -9,4 +9,6 @@ class AppRoutesConstant{
   static String editProfile = 'editProfile';
   static String editPicture = 'editPicture';
   static String postViewPage = 'postViewPage';
+  static String welcomePage = 'welcomePage';
+  static String search = 'search';
 }

@@ -50,6 +50,7 @@ dependencies:
   firebase_auth: ^4.19.5
   firebase_storage: ^11.7.5
   flutter_bloc: ^8.1.5
+  share_plus: ^9.0.0
   expandable_text: ^2.3.0
   shared_preferences: ^2.2.3
 

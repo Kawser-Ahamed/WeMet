@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_page_view_indicator/flutter_page_view_indicator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wemet/config/routes/app_routes_constant.dart';
 import 'package:wemet/core/Color/app_color.dart';
 import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/core/urls/app_image_urls.dart';
@@ -87,7 +89,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     SizedBox(height: height * 0.01),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: width * 0.02),
-                      child: Text("Connect & chat with worldwide friends.Let's go...",
+                      child: Text("Connect & see post of worldwide friend's.Let's go...",
                       textAlign: TextAlign.center,
                         style: GoogleFonts.aBeeZee(
                           color: Colors.white,
@@ -147,53 +149,32 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
         ],
       ),
-      floatingActionButton:  Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          InkWell(
-            onTap: (){
-              _pageController.previousPage(duration: const Duration(seconds: 1), curve: Curves.ease);
-            },
-            child: Container(
-              margin: EdgeInsets.only(left: width * 0.08),
-              child: Card(
-                elevation: 0,
-                color: (_currentIndex >= 1) ? Colors.lightBlueAccent : Colors.transparent,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.1,vertical: height * 0.01),
-                  child: (_currentIndex >=1) ? Text("Back",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: (width/Screen.designWidth) * 30,
-                    ),
-                  ) : const SizedBox(),
+      floatingActionButton: InkWell(
+        onTap: (){
+          _pageController.nextPage(duration: const Duration(seconds: 1), curve: Curves.ease);
+        },
+        child: Card(
+          color: Colors.lightBlueAccent,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: width * 0.1,vertical: height * 0.01),
+            child: (_currentIndex < 2) ? Text("Next",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: (width/Screen.designWidth) * 30,
+              ),
+            ) : InkWell(
+              onTap: (){
+                GoRouter.of(context).pushNamed(AppRoutesConstant.signIn);
+              },
+              child: Text("Start",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: (width/Screen.designWidth) * 30,
                 ),
               ),
             ),
           ),
-          InkWell(
-            onTap: (){
-              _pageController.nextPage(duration: const Duration(seconds: 1), curve: Curves.ease);
-            },
-            child: Card(
-              color: Colors.lightBlueAccent,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.1,vertical: height * 0.01),
-                child: (_currentIndex < 2) ? Text("Next",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: (width/Screen.designWidth) * 30,
-                  ),
-                ) : Text("Start",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: (width/Screen.designWidth) * 30,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

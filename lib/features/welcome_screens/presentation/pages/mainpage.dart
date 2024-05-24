@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wemet/features/home/presentation/pages/homepage.dart';
-import 'package:wemet/features/notification/presentation/pages/notification_page.dart';
+import 'package:wemet/features/menu/presentation/pages/menu_page.dart';
 import 'package:wemet/features/profile/presentation/pages/profile.dart';
 import 'package:wemet/features/search/presentation/pages/search.dart';
 import 'package:wemet/features/upload/presentation/pages/upload_post.dart';
@@ -22,8 +22,8 @@ class _MainPageState extends State<MainPage> {
     const HomePage(),
     const Search(),
     const UploadPost(),
-    const NotificationPage(),
     const Profile(),
+    const MenuPage(),
   ];
 
   int bottomNavBarIndex = 0;
@@ -36,19 +36,11 @@ class _MainPageState extends State<MainPage> {
       Icon(Icons.home,size: width * 0.08,color: (bottomNavBarIndex==0) ? Colors.red:null),
       Icon(Icons.search,size: width * 0.08,color: (bottomNavBarIndex==1) ?  Colors.red:null),
       Icon(CupertinoIcons.add_circled,size: width * 0.09,color: (bottomNavBarIndex==2) ?  Colors.red:null),
-      Icon(Icons.notifications,size: width * 0.08,color: (bottomNavBarIndex==3) ?  Colors.red:null),
-      Container(
-        height: width * 0.1,
-        width: width * 0.1,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.transparent,
-          image: DecorationImage(
-            image: NetworkImage(BlocProvider.of<AuthBloc>(context).state.userData.first.profileImageUrl),
-            fit: BoxFit.fill,
-          ),
-        ),
+      CircleAvatar(
+        radius: width * 0.045,
+        backgroundImage: NetworkImage(BlocProvider.of<AuthBloc>(context).state.userData.first.profileImageUrl),
       ),
+      Icon(Icons.menu,size: width * 0.08,color: (bottomNavBarIndex==4) ?  Colors.red:null),
     ];
     return PopScope(
       canPop: false,

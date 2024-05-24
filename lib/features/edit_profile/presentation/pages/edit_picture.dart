@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wemet/config/routes/app_routes_constant.dart';
 import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/features/edit_profile/presentation/widgets/edit_cover_photo.dart';
 import 'package:wemet/features/edit_profile/presentation/widgets/edit_profile_picture.dart';
@@ -49,7 +51,7 @@ class _EditPictureState extends State<EditPicture> {
                   ),
                   IconButton(
                     onPressed: (){
-                      Navigator.pop(context);
+                      GoRouter.of(context).pushNamed(AppRoutesConstant.search);
                     }, 
                     icon: Icon(Icons.search,size: screenFactor * 60),
                   ),

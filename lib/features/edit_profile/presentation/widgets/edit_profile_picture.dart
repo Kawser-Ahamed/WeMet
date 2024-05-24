@@ -100,7 +100,13 @@ class _EditProfilePictureState extends State<EditProfilePicture> {
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: width * 0.03,vertical: height * 0.01),
                           child: (wemetImagePicker.imageFromDevice == null) ? 
-                          Image.network(widget.imageUrl) : Image.file(wemetImagePicker.imageFromDevice!),
+                          CircleAvatar(
+                            radius: height * 0.05,
+                            backgroundImage: NetworkImage(widget.imageUrl),
+                          ) : CircleAvatar(
+                            radius: height * 0.05,
+                            backgroundImage: FileImage(wemetImagePicker.imageFromDevice!),
+                          ),
                         ),
                       ),
                     ],

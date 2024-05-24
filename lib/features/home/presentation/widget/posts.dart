@@ -13,6 +13,7 @@ import 'package:wemet/features/comment/presentation/widgets/comment_design.dart'
 import 'package:wemet/features/home/presentation/bloc/posts/posts_bloc.dart';
 import 'package:wemet/features/home/presentation/bloc/posts/posts_event.dart';
 import 'package:wemet/features/home/presentation/bloc/posts/posts_state.dart';
+import 'package:wemet/features/home/presentation/widget/report.dart';
 import 'package:wemet/features/home/presentation/widget/shimmer.dart';
 import 'package:wemet/features/user_profile/presentation/bloc/user_profile_bloc.dart';
 import 'package:wemet/features/user_profile/presentation/bloc/user_profile_event.dart';
@@ -78,6 +79,7 @@ class _PostsState extends State<Posts> {
                             ),
                             SizedBox(width: width * 0.05),
                             Expanded(
+                              flex: 5,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -88,6 +90,7 @@ class _PostsState extends State<Posts> {
                                     },
                                     child: Text(state.postData[index].uploaderName,
                                       maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.aBeeZee(
                                         fontSize: screenFactor * 30,
                                         fontWeight: FontWeight.bold
@@ -96,10 +99,13 @@ class _PostsState extends State<Posts> {
                                   ),
                                   Row(
                                     children: [
-                                      Text(state.postData[index].dateTime,
-                                        style: TextStyle(
-                                          fontSize: screenFactor * 30,
-                                          fontWeight: FontWeight.normal
+                                      Flexible(
+                                        child: Text(state.postData[index].dateTime,
+                                          style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: screenFactor * 30,
+                                            fontWeight: FontWeight.normal
+                                          ),
                                         ),
                                       ),
                                       SizedBox(width: width * 0.03),
@@ -108,6 +114,59 @@ class _PostsState extends State<Posts> {
                                   )
                                 ],
                               )
+                            ),
+                            Expanded(
+                              child: PopupMenuButton(
+                                elevation: 0,
+                                color: Theme.of(context).colorScheme.background,
+                                icon: Icon(Icons.more_vert,size: screenFactor * 40,),
+                                itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Report",
+                                          style: TextStyle(
+                                            fontSize: screenFactor * 25,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        SizedBox(height: height * 0.01),
+                                        InkWell(
+                                          onTap:(){
+                                            reportDialogue(context);
+                                          },
+                                          child: Text("Fake post",
+                                            style: TextStyle(
+                                              fontSize: screenFactor * 25,
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap:(){
+                                            reportDialogue(context);
+                                          },
+                                          child: Text("Violence",
+                                            style: TextStyle(
+                                              fontSize: screenFactor * 25,
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap:(){
+                                            reportDialogue(context);
+                                          },
+                                          child: Text("False Information",
+                                            style: TextStyle(
+                                              fontSize: screenFactor * 25,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ),
+                                ]
+                              ),
                             ),
                           ],
                         ),
@@ -139,7 +198,7 @@ class _PostsState extends State<Posts> {
                                 );
                               },
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(screenFactor * 30),
+                                borderRadius: BorderRadius.circular(screenFactor * 20),
                                 child: Image.network(state.postData[index].imageUrl)
                               ),
                             )

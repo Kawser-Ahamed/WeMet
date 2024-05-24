@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wemet/config/routes/app_routes_constant.dart';
 import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/core/reusable/main_loading.dart';
 import 'package:wemet/features/edit_profile/presentation/bloc/edit_profile_bloc.dart';
@@ -72,7 +74,7 @@ class _EditprofileState extends State<Editprofile> {
                   ),
                   IconButton(
                     onPressed: (){
-                      Navigator.pop(context);
+                      GoRouter.of(context).pushNamed(AppRoutesConstant.search);
                     }, 
                     icon: Icon(Icons.search,size: screenFactor * 60),
                   ),

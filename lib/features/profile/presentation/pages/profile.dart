@@ -40,9 +40,22 @@ class _ProfileState extends State<Profile> {
                     left: 0,
                     bottom: height * 0.5,
                     right: 0,
-                    child: Material(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      child: Image.network(state.userData.first.coverPhotoUrl,fit: BoxFit.cover)),
+                    child: InkWell(
+                      onTap: (){
+                        GoRouter.of(context).pushNamed(
+                          AppRoutesConstant.postViewPage,pathParameters: {
+                            'imageUrl' : state.userData.first.coverPhotoUrl,
+                            'name' : state.userData.first.fullName,
+                            'profileImage' : state.userData.first.profileImageUrl,
+                            'dateTime' : " ",
+                            'caption' : " ",
+                          }
+                        );
+                      },
+                      child: Material(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        child: Image.network(state.userData.first.coverPhotoUrl,fit: BoxFit.cover)),
+                    ),
                   ),
                   Positioned(
                     top: height * 0.3,
@@ -68,32 +81,45 @@ class _ProfileState extends State<Profile> {
                             height: (width >600) ? height * 0.2 : height * 0.15,
                             width: (width >600) ? height * 0.2 : height * 0.15,
                             color: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: (width >600) ? height * 0.1 :height * 0.075,
-                              backgroundImage: NetworkImage(state.userData.first.profileImageUrl),
-                              child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: InkWell(
-                                  onTap: (){
-                                    GoRouter.of(context).pushNamed(AppRoutesConstant.editPicture,
-                                      pathParameters: {
-                                        'pictureType' : "Profile Picture",
-                                        'imageUrl' : state.userData.first.profileImageUrl,
-                                      }
-                                    );
-                                  },
-                                  child: Container(
-                                    height: (width >600) ? height * 0.07 : height * 0.06,
-                                    width: (width >600) ? height * 0.07 : height * 0.06,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade300,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: Colors.black),
-                                    ),
-                                    child: FittedBox(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(screenFactor * 10),
-                                        child: const Icon(Icons.camera_alt,color: Colors.black),
+                            child: InkWell(
+                              onTap: (){
+                               GoRouter.of(context).pushNamed(
+                                  AppRoutesConstant.postViewPage,pathParameters: {
+                                    'imageUrl' : state.userData.first.profileImageUrl,
+                                    'name' : state.userData.first.fullName,
+                                    'profileImage' : state.userData.first.profileImageUrl,
+                                    'dateTime' : " ",
+                                    'caption' : " ",
+                                  }
+                                );
+                              },
+                              child: CircleAvatar(
+                                radius: (width >600) ? height * 0.1 :height * 0.075,
+                                backgroundImage: NetworkImage(state.userData.first.profileImageUrl),
+                                child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: InkWell(
+                                    onTap: (){
+                                      GoRouter.of(context).pushNamed(AppRoutesConstant.editPicture,
+                                        pathParameters: {
+                                          'pictureType' : "Profile Picture",
+                                          'imageUrl' : state.userData.first.profileImageUrl,
+                                        }
+                                      );
+                                    },
+                                    child: Container(
+                                      height: (width >600) ? height * 0.07 : height * 0.06,
+                                      width: (width >600) ? height * 0.07 : height * 0.06,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade300,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(color: Colors.black),
+                                      ),
+                                      child: FittedBox(
+                                        child: Padding(
+                                          padding: EdgeInsets.all(screenFactor * 10),
+                                          child: const Icon(Icons.camera_alt,color: Colors.black),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -342,7 +368,7 @@ class _ProfileState extends State<Profile> {
                                               );
                                             },
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(screenFactor * 30),
+                                              borderRadius: BorderRadius.circular(screenFactor * 20),
                                               child: Image.network(state.profileData[index].imageUrl)
                                             ),
                                           )

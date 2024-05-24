@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wemet/config/routes/app_routes_constant.dart';
 import 'package:wemet/config/theme/bloc/theme_bloc.dart';
 import 'package:wemet/config/theme/bloc/theme_event.dart';
-import 'package:wemet/core/Color/app_color.dart';
+import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/core/reusable/loading.dart';
 import 'package:wemet/core/urls/app_image_urls.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
     var email = sharedPreferences.getString('email');
     if(email==null){
       Timer(const Duration(seconds: 2), () {
-        GoRouter.of(context).pushNamed(AppRoutesConstant.signIn);
+        GoRouter.of(context).pushNamed(AppRoutesConstant.welcomePage);
       });
     }
     else{
@@ -43,12 +43,19 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    double height = Screen.screenHeight(context);
+    double width = Screen.screenWidth(context);
     return Scaffold(
-      backgroundColor: AppColor.darkBackgroundColor,
+      backgroundColor: Colors.black,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(AppImageUrls.appLogo,fit: BoxFit.contain),
+          SizedBox(
+            height: height * 0.2,
+            width: width * 0.4,
+            child: Image.asset(AppImageUrls.appIcon,fit: BoxFit.contain),
+          ),
+          SizedBox(height: height * 0.02),
           const Loading(color: Colors.white, size: 0.1),
         ], 
       ),
