@@ -7,6 +7,7 @@ import 'package:wemet/core/responsive/screen.dart';
 import 'package:wemet/core/reusable/main_loading.dart';
 import 'package:wemet/core/reusable/wemet_image_picker.dart';
 import 'package:wemet/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:wemet/features/home/presentation/bloc/post_category/post_category_bloc.dart';
 import 'package:wemet/features/upload/presentation/bloc/upload_post_bloc.dart';
 import 'package:wemet/features/upload/presentation/bloc/upload_post_event.dart';
 import 'package:wemet/features/upload/presentation/widget/upload_post_attachment.dart';
@@ -25,12 +26,12 @@ class _UploadPostState extends State<UploadPost> {
   String ? postCategory;
   WemetImagePicker wemetImagePicker = WemetImagePicker();
   String ? _optionValue;
-  final List<String> _options = [
-    "Cricket",
-    'Football',
-    "Political",
-  ];
 
+  @override
+  void initState() {
+    
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -165,10 +166,10 @@ class _UploadPostState extends State<UploadPost> {
                                   fontSize: screenFactor * 30,
                                 ),
                               ),
-                              items: _options.map((value){
+                              items: BlocProvider.of<PostCategoryBloc>(context).state.postCategoryData.map((options){
                                 return DropdownMenuItem(
-                                  value: value,
-                                  child: Text(value,
+                                  value: options.name,
+                                  child: Text(options.name,
                                     style: TextStyle(
                                       fontSize: screenFactor * 30,
                                     ),

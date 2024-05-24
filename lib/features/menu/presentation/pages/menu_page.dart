@@ -55,7 +55,7 @@ class _MenuPageState extends State<MenuPage> {
                     SizedBox(height: height * 0.02),
                     InkWell(
                       onTap: (){
-                        Share.share("This is share content");
+                        Share.share("Download WeMet App\nhttps://drive.google.com/file/d/1MDbLM4pEP1sCbQrdlRFW5NdWtaX8cvud/view?usp=drive_link");
                       },
                       child: Container(
                         width: width * 1,

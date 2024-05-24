@@ -18,6 +18,7 @@ forgotPasswordDialog(BuildContext context){
           style: TextStyle(
             fontSize: screenFactor * 30,
             fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
         ),
         content: CustomTextField(label: "Email", prefixIcon: Icons.mail, controller: emailcontroller, isPassword: false),
