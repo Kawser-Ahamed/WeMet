@@ -216,27 +216,25 @@ app.get('/get_search_user/:searchvalue', async(req,res)=>{
 app.post('/add_following', async (req,res)=>{
     try{
         const addFollwoingCollection = client.db(databaseName).collection(`${req.body.userEmail}-following`);
-        
-        addFollwoingCollection.insertOne({
-            'followingEmail' : req.body.followingEmail,
-        });
-
         let userFollowing = await client.db(databaseName).collection('users').findOne({email : req.body.userEmail});
         let followingResponse = await client.db(databaseName).collection('users').findOne({email : req.body.followingEmail});
-        
-        client.db(databaseName).collection('users').updateOne({email : req.body.userEmail},{
-            $set: {
-                following : (userFollowing['following'] + 1),
-            }
-        });
 
-        client.db(databaseName).collection('users').updateOne({email : req.body.followingEmail},{
-            $set: {
-                followers : (followingResponse['followers'] + 1),
-            }
-        });
-
-        res.send("You are now following ");
+        addFollwoingCollection.insertOne({
+            'followingEmail' : req.body.followingEmail,
+        }).then((value)=>{
+            client.db(databaseName).collection('users').updateOne({email : req.body.userEmail},{
+                $set: {
+                    following : (userFollowing['following'] + 1),
+                }
+            });
+        }).then((value)=>{
+            client.db(databaseName).collection('users').updateOne({email : req.body.followingEmail},{
+                $set: {
+                    followers : (followingResponse['followers'] + 1),
+                }
+            });
+            res.send("You are now following ");
+        })
     }
     catch(error){
         res.send(error);
@@ -247,27 +245,27 @@ app.post('/add_following', async (req,res)=>{
 app.post('/remove_following', async (req,res)=>{
     try{
         const removeFollwoingCollection = client.db(databaseName).collection(`${req.body.userEmail}-following`);
-        
-        removeFollwoingCollection.deleteOne({
-            'followingEmail' : req.body.followingEmail,
-        });
-
         let userFollowingResponse = await client.db(databaseName).collection('users').findOne({email : req.body.userEmail});
         let followersResponse = await client.db(databaseName).collection('users').findOne({email : req.body.followingEmail});
-        
-        client.db(databaseName).collection('users').updateOne({email : req.body.userEmail},{
-            $set: {
-                following : (userFollowingResponse['following'] - 1),
-            }
-        });
 
-        client.db(databaseName).collection('users').updateOne({email : req.body.followingEmail},{
-            $set: {
-                followers : (followersResponse['followers'] - 1),
-            }
-        });
-
-        res.send("You unfollowed");
+        removeFollwoingCollection.deleteOne({
+            'followingEmail' : req.body.followingEmail,
+        })
+        .then((value)=>{
+            client.db(databaseName).collection('users').updateOne({email : req.body.userEmail},{
+                $set: {
+                    following : (userFollowingResponse['following'] - 1),
+                }
+            });
+        })
+        .then((value)=>{
+            client.db(databaseName).collection('users').updateOne({email : req.body.followingEmail},{
+                $set: {
+                    followers : (followersResponse['followers'] - 1),
+                }
+            });
+            res.send("You unfollowed");
+        })
     }
     catch(error){
         res.send(error);
