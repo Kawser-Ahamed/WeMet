@@ -321,7 +321,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 onTap: (){
                                                   GoRouter.of(context).pushNamed(
                                                     AppRoutesConstant.postViewPage,pathParameters: {
-                                                      'imageUrl' : state.userProfilePost.first.imageUrl,
+                                                      'imageUrl' : state.userProfilePost[index].imageUrl,
                                                       'name' : state.userprofileData.first.fullName,
                                                       'profileImage' : state.userprofileData.first.profileImageUrl,
                                                       'dateTime' : state.userProfilePost[index].dateTime,
