@@ -242,7 +242,7 @@ This project is licensed under the terms of Kawser Ahamed.
 
 Your Name - [@facebook_handle](https://www.facebook.com/kawser.ahamed.farabi/) - kawserahamed864@gmail.com
 
-Project Link: [Shopify](https://github.com/Kawser-Ahamed/WeMet)
+Project Link: [WeMet](https://github.com/Kawser-Ahamed/WeMet)
 
 
 <!-- Acknowledgments -->
