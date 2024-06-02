@@ -15,7 +15,7 @@ class _WemetAppBarState extends State<WemetAppBar> {
   @override
   Widget build(BuildContext context) {
     double height = Screen.screenHeight(context);
-    double width = Screen.screenWidth(context);
+    //double width = Screen.screenWidth(context);
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
@@ -34,8 +34,7 @@ class _WemetAppBarState extends State<WemetAppBar> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: height * 0.1,
-                width: width * 0.2,
+                height: height * 0.07,
                 color: Colors.transparent,
                 child: FittedBox(
                   child: Image.asset(AppImageUrls.appIcon),

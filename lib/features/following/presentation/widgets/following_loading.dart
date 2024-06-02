@@ -22,14 +22,14 @@ class FolowingLoading extends StatelessWidget {
               child: Column(
                 children: [
                   CircleAvatar(
-                    radius: height * 0.04,
-                    backgroundColor: Colors.yellow,
+                    radius: height * 0.05,
+                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
                   ),
                   Text('Followers',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.aBeeZee(
-                      fontSize: (width/Screen.designWidth) * 30,
+                      fontSize: (width/Screen.designWidth) * 35,
                     ),
                   ),
                 ],

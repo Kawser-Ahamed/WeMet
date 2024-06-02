@@ -19,7 +19,8 @@ import 'package:wemet/features/user_profile/presentation/bloc/user_profile_bloc.
 import 'package:wemet/features/user_profile/presentation/bloc/user_profile_event.dart';
 
 class Posts extends StatefulWidget {
-  const Posts({super.key});
+  final ScrollController scrollController;
+  const Posts({super.key, required this.scrollController});
 
   @override
   State<Posts> createState() => _PostsState();
@@ -50,6 +51,7 @@ class _PostsState extends State<Posts> {
           }
           else{
             return ListView.builder(
+              controller: widget.scrollController,
               shrinkWrap: true,
               itemCount: state.postData.length,
               itemBuilder: (context, index) {

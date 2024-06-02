@@ -12,7 +12,6 @@ import 'package:wemet/features/following/presentation/bloc/following_state.dart'
 import 'package:wemet/features/following/presentation/widgets/following_loading.dart';
 import 'package:wemet/features/user_profile/presentation/bloc/user_profile_bloc.dart';
 import 'package:wemet/features/user_profile/presentation/bloc/user_profile_event.dart';
-
 class Following extends StatefulWidget {
   const Following({super.key});
 
@@ -34,36 +33,32 @@ class _FollowingState extends State<Following> {
     double width = Screen.screenWidth(context);
     double screenfactor = (width/Screen.designWidth);
     AuthState state = BlocProvider.of<AuthBloc>(context,listen: false).state;
-    return Container(
-      color: Theme.of(context).colorScheme.background,
-      padding: EdgeInsets.symmetric(vertical: height * 0.01),
-      child: Card(
-        elevation: 0,
-        color: Theme.of(context).colorScheme.background,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: width * 0.03),
-            Container(
-              width: height * 0.08,
-              color: Colors.transparent,
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: height * 0.04,
-                    backgroundImage: NetworkImage(state.userData.first.profileImageUrl),
-                  ),
-                  Text('You',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.aBeeZee(
-                      fontSize: screenfactor * 30,
-                    ),
-                  ),
-                ],
+    return FittedBox(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(width: width * 0.02),
+          Column(
+            children: [
+              CircleAvatar(
+                radius: height * 0.05,
+                backgroundImage: NetworkImage(state.userData.first.profileImageUrl),
               ),
-            ),
-            Expanded(
+              Text('You',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.aBeeZee(
+                  fontSize: screenfactor * 35,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(width: width * 0.02),
+          SizedBox(
+            width: width * 1,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: const AlwaysScrollableScrollPhysics(),
               child: BlocBuilder<FollowingBloc,FollowingState>(
                 builder: (context, state) {
                   if(state.uiStatus == UiStatus.loading){
@@ -73,36 +68,35 @@ class _FollowingState extends State<Following> {
                     return Text(state.message);
                   }
                   else{
-                    return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(
-                          growable: true,
-                          state.followingUserMap.length, (index) => Padding(
-                            padding: EdgeInsets.symmetric(horizontal: width * 0),
-                            child: Container(
-                              width: height * 0.12,
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: (){
-                                  context.read<UserProfileBloc>().add(UserProfileDataEvent(email: state.followingUserMap.values.elementAt(index).email, isView: true, context: context));
-                                  mainLoading(context);
-                                },
-                                child: Column(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: height * 0.04,
-                                      backgroundImage: NetworkImage(state.followingUserMap.values.elementAt(index).profileImageUrl),
+                    return Row(
+                      children: List.generate(
+                        growable: true,
+                        state.followingUserMap.length, (index) => Padding(
+                          padding: EdgeInsets.symmetric(horizontal: width * 0),
+                          child: Container(
+                            width: height * 0.12,
+                            color: Colors.transparent,
+                            margin: EdgeInsets.only(right: width * 0.01),
+                            child: InkWell(
+                              onTap: (){
+                                context.read<UserProfileBloc>().add(UserProfileDataEvent(email: state.followingUserMap.values.elementAt(index).email, isView: true, context: context));
+                                mainLoading(context);
+                              },
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: height * 0.05,
+                                    backgroundImage: NetworkImage(state.followingUserMap.values.elementAt(index).profileImageUrl),
+                                  ),
+                                  Text(state.followingUserMap.values.elementAt(index).fullName,
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.aBeeZee(
+                                      fontSize: (width/Screen.designWidth) * 35,
                                     ),
-                                    Text(state.followingUserMap.values.elementAt(index).fullName,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.aBeeZee(
-                                        fontSize: (width/Screen.designWidth) * 30,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -113,8 +107,8 @@ class _FollowingState extends State<Following> {
                 },
               ),
             ),
-          ],
-        ),
+          ),
+        ]
       ),
     );
   }
